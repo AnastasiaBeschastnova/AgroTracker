@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.agrotracker.databinding.FragmentSecondBinding
+import com.example.agrotracker.databinding.FragmentFirstBinding
+import com.example.agrotracker.databinding.FragmentOperatorSecondBinding
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class OperatorSecondFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentOperatorSecondBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,7 +25,7 @@ class SecondFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentOperatorSecondBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -32,10 +33,11 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        binding.buttonStart.setOnClickListener {
+            findNavController().navigate(R.id.action_operatorSecondFragment_to_operatorThirdFragment)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

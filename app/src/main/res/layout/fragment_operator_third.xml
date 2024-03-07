@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
 
+
     <TextView
         android:id="@+id/hello_text"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_text"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_operator"
+        style="@style/textview_style"
+        android:text="Вы в пути чч:мм:сс"
+        app:layout_constraintBottom_toTopOf="@+id/button_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,25 +19,14 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
+        android:id="@+id/button_start"
         style="@style/button_style"
-        android:id="@+id/button_operator"
-        android:text="@string/operator"
-        android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_admin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hello_text" />
-
-    <Button
-        style="@style/button_style"
-        android:id="@+id/button_admin"
-        android:text="@string/admin"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:text="Завершить"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_operator" />
-
+        app:layout_constraintTop_toBottomOf="@+id/hello_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
