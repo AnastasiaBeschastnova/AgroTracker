@@ -1,4 +1,4 @@
-package com.example.agrotracker
+package com.example.agrotracker.operator
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.agrotracker.databinding.FragmentFirstBinding
+import com.example.agrotracker.R
 import com.example.agrotracker.databinding.FragmentOperatorSecondBinding
 
 /**

@@ -1,3 +1,4 @@
+
 pluginManagement {
     repositories {
         google {
@@ -5,6 +6,7 @@ pluginManagement {
                 includeGroupByRegex("com\\.android.*")
                 includeGroupByRegex("com\\.google.*")
                 includeGroupByRegex("androidx.*")
+                include("androidx.navigation:navigation-safe-args-gradle-plugin")
             }
         }
         mavenCentral()

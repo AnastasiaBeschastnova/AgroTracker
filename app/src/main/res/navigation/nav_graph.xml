@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/operatorSecondFragment"
-        android:name="com.example.agrotracker.OperatorSecondFragment"
+        android:name="com.example.agrotracker.operator.OperatorSecondFragment"
         android:label="@string/operator" >
         <action
             android:id="@+id/action_operatorSecondFragment_to_operatorThirdFragment"
@@ -27,10 +27,37 @@
     </fragment>
     <fragment
         android:id="@+id/adminSecondFragment"
-        android:name="com.example.agrotracker.AdminSecondFragment"
-        android:label="@string/admin" />
+        android:name="com.example.agrotracker.admin.AdminSecondFragment"
+        android:label="Список работ" >
+        <action
+            android:id="@+id/action_adminSecondFragment_to_adminThirdFragment"
+            app:destination="@id/adminThirdFragment" />
+    </fragment>
     <fragment
         android:id="@+id/operatorThirdFragment"
-        android:name="com.example.agrotracker.OperatorThirdFragment"
-        android:label="@string/operator" />
+        android:name="com.example.agrotracker.operator.OperatorThirdFragment"
+        android:label="@string/operator" >
+        <action
+            android:id="@+id/action_operatorThirdFragment_to_operatorFourthFragment"
+            app:destination="@id/operatorFourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/operatorFourthFragment"
+        android:name="com.example.agrotracker.operator.OperatorFourthFragment"
+        android:label="@string/operator" >
+        <action
+            android:id="@+id/action_operatorFourthFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminThirdFragment"
+        android:name="com.example.agrotracker.admin.AdminThirdFragment"
+        android:label="ID обработки" >
+        <action
+            android:id="@+id/action_adminThirdFragment_to_adminSecondFragment"
+            app:destination="@id/adminSecondFragment" />
+        <argument
+            android:name="work"
+            app:argType="com.example.agrotracker.admin.WorklistItemModel" />
+    </fragment>
 </navigation>

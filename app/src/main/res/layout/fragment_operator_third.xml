@@ -11,7 +11,7 @@
         android:id="@+id/hello_text"
         style="@style/textview_style"
         android:text="Вы в пути чч:мм:сс"
-        app:layout_constraintBottom_toTopOf="@+id/button_start"
+        app:layout_constraintBottom_toTopOf="@+id/button_end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/button_start"
+        android:id="@+id/button_end"
         style="@style/button_style"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"

@@ -14,7 +14,7 @@
         android:layout_marginVertical="30dp">
         <TextView
             style="@style/textview_style"
-            android:id="@+id/hello_text"
+            android:id="@+id/field"
             android:text="Поле (номер)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
