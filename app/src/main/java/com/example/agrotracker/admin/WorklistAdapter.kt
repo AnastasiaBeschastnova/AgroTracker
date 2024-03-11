@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.agrotracker.databinding.ItemWorklistBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class WorklistAdapter(private val dataSet: Array<WorklistItemModel>, val onItemClicked: (item: WorklistItemModel)->Unit) :
@@ -23,6 +25,13 @@ class WorklistAdapter(private val dataSet: Array<WorklistItemModel>, val onItemC
         viewHolder.binding.field.text=item?.fieldName
         viewHolder.binding.worktype.text=item?.workType
         viewHolder.binding.culture.text=item?.culture
+        viewHolder.binding.fuel.text=item?.fuel
+        viewHolder.binding.technic.text=item?.technic
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+        val date: String = simpleDateFormat.format(item?.startTime)
+        //println(date)
+        //viewHolder.binding.worktime.text=item?.startTime.toString()
+        viewHolder.binding.worktime.text=date
 
         viewHolder.binding.root.setOnClickListener {
             if(item != null)

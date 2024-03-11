@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.databinding.FragmentAdminThirdBinding
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -40,7 +41,10 @@ class AdminThirdFragment : Fragment() {
         binding.culture.text = "Культура: "+args.work.culture
         binding.technic.text = "Техника: "+args.work.technic
         binding.fuel.text = "Топливо: "+args.work.fuel
-        binding.worktime.text = "Начало обработки: "+ args.work.startTime
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+        val date: String = simpleDateFormat.format(args.work.startTime)
+
+        binding.worktime.text = "Начало обработки: "+ date
 
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_adminThirdFragment_to_adminSecondFragment)
