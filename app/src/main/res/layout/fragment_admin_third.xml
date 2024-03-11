@@ -12,20 +12,25 @@
         android:orientation="vertical"
         android:layout_margin="30dp">
 
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/map"
-            android:text="//здесь будет карта//"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="20dp"
-            android:layout_width="350dp"
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapview"
+            android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:gravity="center"/>
+            android:clickable="true" />
+<!--        <TextView-->
+<!--            style="@style/textview_style"-->
+<!--            android:id="@+id/map"-->
+<!--            android:text="//здесь будет карта//"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_chainStyle="packed"-->
+<!--            android:background="@color/light_green"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:layout_width="350dp"-->
+<!--            android:layout_height="350dp"-->
+<!--            android:gravity="center"/>-->
         <TextView
             style="@style/textview_style"
             android:id="@+id/field"
@@ -37,6 +42,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             android:background="@color/light_green"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_width="350dp" />
 
         <TextView

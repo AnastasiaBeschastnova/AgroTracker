@@ -12,6 +12,7 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import com.example.agrotracker.databinding.ActivityMainBinding
+import org.osmdroid.config.Configuration
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Configuration.getInstance().setUserAgentValue("AgroTracker_20240312_014400")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

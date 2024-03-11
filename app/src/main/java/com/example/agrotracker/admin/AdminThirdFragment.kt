@@ -9,6 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.databinding.FragmentAdminThirdBinding
+import org.osmdroid.config.Configuration
+import org.osmdroid.library.BuildConfig
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapController
+import org.osmdroid.views.MapView
 import java.text.SimpleDateFormat
 
 /**
@@ -18,6 +24,8 @@ class AdminThirdFragment : Fragment() {
 
     private var _binding: FragmentAdminThirdBinding? = null
     private val args: AdminThirdFragmentArgs by navArgs()
+
+    private var mMapController: MapController? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,6 +57,13 @@ class AdminThirdFragment : Fragment() {
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_adminThirdFragment_to_adminSecondFragment)
         }
+
+        binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
+//        binding.mapview.setBuiltInZoomControls(true)
+//        mMapController = binding.mapview.getController() as MapController
+//        mMapController?.setZoom(13)
+//        val gPt = GeoPoint(51500000, -150000)
+//        mMapController?.setCenter(gPt)
     }
 
 
