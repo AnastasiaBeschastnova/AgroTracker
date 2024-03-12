@@ -4,29 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:layout_marginVertical="5dp">
 
 
     <TextView
-        android:id="@+id/hello_text"
+        android:id="@+id/time"
         style="@style/textview_style"
         android:text="Вы в пути чч:мм:сс"
-        app:layout_constraintBottom_toTopOf="@+id/button_end"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/geo_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <TextView
+        android:id="@+id/geo_text"
+        style="@style/textview_style"
+        android:text="Местоположение:"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/button_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
+
     <Button
         android:id="@+id/button_end"
         style="@style/button_style"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:text="Завершить"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hello_text" />
+        app:layout_constraintTop_toBottomOf="@+id/geo_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
