@@ -32,12 +32,15 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonOperator.setOnClickListener {
+                binding.buttonLogIn.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
         }
-        binding.buttonAdmin.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
-        }
+//        binding.buttonOperator.setOnClickListener {
+//            findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
+//        }
+//        binding.buttonAdmin.setOnClickListener {
+//            findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
+//        }
     }
 
 

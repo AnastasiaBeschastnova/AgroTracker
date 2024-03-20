@@ -24,11 +24,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
                 android:textSize="20dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,11 +44,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,11 +64,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,11 +84,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,11 +104,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/light_green"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 

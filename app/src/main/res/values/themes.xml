@@ -5,5 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.AgroTracker" parent="Base.Theme.AgroTracker" />
+    <style name="Theme.AgroTracker" parent="Base.Theme.AgroTracker" >
+<!--        <item name="colorPrimary">@color/green</item>-->
+<!--        <item name="colorPrimaryDark">@color/dark_green</item>-->
+<!--        <item name="colorSecondary">@color/light_green</item>-->
+
+
+    </style>
 </resources>
