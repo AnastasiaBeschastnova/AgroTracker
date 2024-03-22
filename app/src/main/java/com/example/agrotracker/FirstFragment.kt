@@ -20,8 +20,8 @@ class FirstFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -31,16 +31,15 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-                binding.buttonLogIn.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
+        //временная псевдоавторизация
+        //if (binding.loginInputEditText.text.toString() == "ivanov" && binding.passwordInputEditText.text.toString() == "ivanov") {
+        binding.buttonLogIn.setOnClickListener {
+            if (binding.loginInputEditText.text.toString() == "ivanov" && binding.passwordInputEditText.text.toString() == "ivanov") {
+                findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
+            } else if (binding.loginInputEditText.text.toString() == "petrov" && binding.passwordInputEditText.text.toString() == "petrov") {
+                findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)}
         }
-//        binding.buttonOperator.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
-//        }
-//        binding.buttonAdmin.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
-//        }
+
     }
 
 

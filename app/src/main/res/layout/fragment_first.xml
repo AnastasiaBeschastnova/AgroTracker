@@ -62,7 +62,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-
+                    android:id="@+id/loginInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"/>
@@ -90,6 +90,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
