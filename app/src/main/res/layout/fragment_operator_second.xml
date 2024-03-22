@@ -9,29 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="30dp">
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/field"
-            android:text="Поле (номер)"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_input_layout_style_light_green">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
+        android:layout_marginVertical="30dp"
+        android:orientation="vertical">
         <TextView
             style="@style/textview_style"
             android:id="@+id/worktype"
@@ -47,15 +27,16 @@
             android:layout_height="wrap_content"
             style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/worktypeInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/field"
             style="@style/textview_style"
-            android:id="@+id/culture"
-            android:text="Культура"
+            android:text="Поле (номер)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,18 +44,20 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style_light_green"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_input_layout_style_light_green">
+            android:layout_height="wrap_content">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            style="@style/textview_style"
             android:id="@+id/technic"
+            style="@style/textview_style"
             android:text="Техника"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -83,19 +66,21 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style_light_green"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_input_layout_style_light_green">
+            android:layout_height="wrap_content">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/technicInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/workname"
             style="@style/textview_style"
-            android:id="@+id/fuel"
-            android:text="Топливо в баке, л"
+            android:text="Название обработки"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,25 +88,54 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style_light_green"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/text_input_layout_style_light_green">
+            android:layout_height="wrap_content">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/worknameInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            style="@style/button_style"
-            android:id="@+id/button_start"
-            android:text="Начать"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+
+        <TextView
+            android:id="@+id/culture"
+            style="@style/textview_style"
+            android:text="Культура"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_gravity="center"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/text_input_layout_style_light_green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/cultureTextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cultureInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_start"
+            style="@style/button_style"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Начать"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
 </ScrollView>

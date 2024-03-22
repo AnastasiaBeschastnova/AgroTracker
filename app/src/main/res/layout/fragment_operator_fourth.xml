@@ -42,9 +42,108 @@
             android:layout_height="wrap_content"
             style="@style/text_input_layout_style_light_green">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fuelInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            style="@style/textview_style"
+            android:id="@+id/seeds"
+            android:text="Количество семян, кг"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_width="wrap_content"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green"
+            android:visibility="gone"
+            android:id="@+id/seedsTextInputLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/seedsInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/textview_style"
+            android:id="@+id/fertilizer"
+            android:text="Количество удобрения, л"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_width="wrap_content"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green"
+            android:visibility="gone"
+            android:id="@+id/fertilizerTextInputLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fertilizerInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/textview_style"
+            android:id="@+id/water"
+            android:text="Количество воды, л"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green"
+            android:visibility="gone"
+            android:id="@+id/waterTextInputLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/waterInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            style="@style/textview_style"
+            android:id="@+id/harvest"
+            android:text="Количество урожая, кг"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_width="wrap_content"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/text_input_layout_style_light_green"
+            android:visibility="gone"
+            android:id="@+id/harvestTextInputLayout">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/harvestInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="20dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
