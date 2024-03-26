@@ -47,6 +47,9 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.osmdroid)
     implementation(libs.play.services.location)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:2.10.0") // Retrofit
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") //Gson
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
