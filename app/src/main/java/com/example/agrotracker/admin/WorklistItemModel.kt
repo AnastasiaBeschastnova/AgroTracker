@@ -6,11 +6,10 @@ import java.util.Date
 
 @Parcelize
 data class WorklistItemModel (
+    val workId: Int,
     val fieldName: String,
     val workType: String,
     val culture: String,
     val technic: String,
-    val fuel: String,
-    val startTime: Date,
-    val endTime: Date
+    val startTime: String
 ): Parcelable

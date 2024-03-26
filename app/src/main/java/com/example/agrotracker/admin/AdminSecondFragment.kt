@@ -5,9 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.agrotracker.R
+import com.example.agrotracker.api.NetworkService
+import com.example.agrotracker.converters.toWorklistItemModel
 import com.example.agrotracker.databinding.FragmentAdminSecondBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import java.util.Date
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -15,6 +26,7 @@ import java.util.Date
 class AdminSecondFragment : Fragment() {
 
     private var _binding: FragmentAdminSecondBinding? = null
+    private val api by lazy{ NetworkService.instance?.agroTrackerApi}
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,13 +44,11 @@ class AdminSecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.adminRecycler.adapter = WorklistAdapter(
-            dataSet = list,
-            onItemClicked = { item ->
-                findNavController().navigate(
-                    AdminSecondFragmentDirections.actionAdminSecondFragmentToAdminThirdFragment(item)
-                )
-            })
+
+        get_worklist()
+        Toast.makeText(requireContext(), "Список работ загружается.", Toast.LENGTH_SHORT).show()
+
+
 
     }
 
@@ -48,15 +58,33 @@ class AdminSecondFragment : Fragment() {
         _binding = null
     }
 
-    val list = arrayOf(
-        WorklistItemModel("поле1", "посев", "чеснок", "трактор", "60", Date(), Date()),
-        WorklistItemModel("поле2", "культивирование", "огурец", "трактор", "59", Date(), Date()),
-        WorklistItemModel("поле3", "полив", "кукуруза", "трактор", "77", Date(), Date()),
-        WorklistItemModel("поле4", "посев", "чеснок", "трактор", "60", Date(), Date()),
-        WorklistItemModel("поле5", "культивирование", "огурец", "трактор", "59", Date(), Date()),
-        WorklistItemModel("поле6", "полив", "кукуруза", "трактор", "77", Date(), Date()),
-        WorklistItemModel("поле7", "посев", "чеснок", "трактор", "60", Date(), Date()),
-        WorklistItemModel("поле8", "культивирование", "огурец", "трактор", "59", Date(), Date()),
-        WorklistItemModel("поле9", "полив", "кукуруза", "трактор", "77", Date(), Date()),
-    )
+
+    private fun get_worklist() {
+        CoroutineScope(Dispatchers.Main).launch {
+            flow{
+                val worksResponse = api?.getWorklist()
+                emit(worksResponse)
+            }.catch { e ->
+//                val message = when(e){
+//                    is retrofit2.HttpException -> {
+//                        when(e.code()){
+//                            else -> "Ошибка сервера"
+//                        }
+//                    }
+//                    else -> "Внутренняя ошибка, ${e.message}"
+//                }
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            }.collect { worksResponse ->
+                binding.adminRecycler.adapter = WorklistAdapter(
+                    dataSet = worksResponse?.map { it.toWorklistItemModel() }.orEmpty().toTypedArray(),
+                    onItemClicked = { item ->
+                        findNavController().navigate(
+                            AdminSecondFragmentDirections.actionAdminSecondFragmentToAdminThirdFragment(item)
+                        )
+                    })
+            }
+        }
+    }
+
+
 }

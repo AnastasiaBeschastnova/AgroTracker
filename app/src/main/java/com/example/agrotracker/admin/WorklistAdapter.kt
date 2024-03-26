@@ -22,16 +22,18 @@ class WorklistAdapter(private val dataSet: Array<WorklistItemModel>, val onItemC
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = dataSet.getOrNull(position)
-        viewHolder.binding.field.text=item?.fieldName
+        viewHolder.binding.workId.text=item?.workId.toString()
         viewHolder.binding.worktype.text=item?.workType
         viewHolder.binding.culture.text=item?.culture
-        viewHolder.binding.fuel.text=item?.fuel
+        viewHolder.binding.fieldName.text=item?.fieldName
         viewHolder.binding.technic.text=item?.technic
-        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
-        val date: String = simpleDateFormat.format(item?.startTime)
-        //println(date)
+        viewHolder.binding.startTime.text=item?.startTime
+
+//        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+//        val date: String = simpleDateFormat.format(item?.startTime)
+//        //println(date)
         //viewHolder.binding.worktime.text=item?.startTime.toString()
-        viewHolder.binding.worktime.text=date
+//        viewHolder.binding.worktime.text=date
 
         viewHolder.binding.root.setOnClickListener {
             if(item != null)

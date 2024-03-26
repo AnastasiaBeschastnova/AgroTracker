@@ -17,22 +17,23 @@
 
 
         <TextView
-            android:id="@+id/field"
+            android:id="@+id/work_id"
             style="@style/textview_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Поле (номер)"
-            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="ID работы"
             app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/worktime"
+            android:id="@+id/field_name"
             style="@style/textview_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Время"
+            android:text="Поле"
+            android:textSize="18dp"
             android:ellipsize="end"
             android:layout_marginStart="15dp"
             android:maxLines="1"
@@ -51,14 +52,14 @@
             android:maxLines="1"
             app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/field" />
+            app:layout_constraintTop_toBottomOf="@+id/work_id" />
 
         <TextView
-            android:id="@+id/fuel"
+            android:id="@+id/start_time"
             style="@style/textview_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Топливо"
+            android:text="Время начала"
             android:textSize="18dp"
             android:ellipsize="end"
             android:layout_marginStart="15dp"
@@ -92,7 +93,7 @@
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@+id/worktime" />
+            app:layout_constraintTop_toBottomOf="@+id/field_name" />
 
 
 

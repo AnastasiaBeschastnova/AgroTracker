@@ -40,7 +40,7 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //временная псевдоавторизация
+
         binding.buttonLogIn.setOnClickListener {
             login(
                 binding.loginInputEditText.text.toString(),
