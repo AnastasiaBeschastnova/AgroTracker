@@ -1,5 +1,7 @@
 package com.example.agrotracker.api
 
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,6 +11,13 @@ class NetworkService private constructor() {
     init {
         mRetrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(
+                OkHttpClient.Builder()
+                    .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    })
+                    .build()
+            )
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

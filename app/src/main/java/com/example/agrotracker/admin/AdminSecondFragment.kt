@@ -65,14 +65,6 @@ class AdminSecondFragment : Fragment() {
                 val worksResponse = api?.getWorklist()
                 emit(worksResponse)
             }.catch { e ->
-//                val message = when(e){
-//                    is retrofit2.HttpException -> {
-//                        when(e.code()){
-//                            else -> "Ошибка сервера"
-//                        }
-//                    }
-//                    else -> "Внутренняя ошибка, ${e.message}"
-//                }
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }.collect { worksResponse ->
                 binding.adminRecycler.adapter = WorklistAdapter(

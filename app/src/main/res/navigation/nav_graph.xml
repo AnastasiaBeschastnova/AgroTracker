@@ -24,6 +24,10 @@
         <action
             android:id="@+id/action_operatorSecondFragment_to_operatorThirdFragment"
             app:destination="@id/operatorThirdFragment" />
+        <argument
+            android:name="creatorId"
+            app:argType="integer"/>
+
     </fragment>
     <fragment
         android:id="@+id/adminSecondFragment"
@@ -40,6 +44,15 @@
         <action
             android:id="@+id/action_operatorThirdFragment_to_operatorFourthFragment"
             app:destination="@id/operatorFourthFragment" />
+        <argument
+            android:name="creatorId"
+            app:argType="integer" />
+        <argument
+            android:name="startTime"
+            app:argType="string" />
+        <argument
+            android:name="workTypeId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/operatorFourthFragment"
@@ -48,11 +61,20 @@
         <action
             android:id="@+id/action_operatorFourthFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <argument
+            android:name="workId"
+            app:argType="integer" />
+        <argument
+            android:name="endTime"
+            app:argType="string" />
+        <argument
+            android:name="workTypeId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/adminThirdFragment"
         android:name="com.example.agrotracker.admin.AdminThirdFragment"
-        android:label="ID обработки" >
+        android:label="Подробнее" >
         <action
             android:id="@+id/action_adminThirdFragment_to_adminSecondFragment"
             app:destination="@id/adminSecondFragment" />

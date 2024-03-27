@@ -66,16 +66,6 @@ class AdminThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         workInfo(args.work.workId)
-//        binding.field.text = "Поле (номер): "+args.work.fieldName
-//        binding.worktype.text = "Тип обработки: "+args.work.workType
-//        binding.culture.text = "Культура: "+args.work.culture
-//        binding.technic.text = "Техника: "+args.work.technic
-//        binding.workId.text = "ID: "+args.work.workId
-////        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
-////        val date: String = simpleDateFormat.format(args.work.startTime)
-//
-//        binding.starttime.text = "Начало обработки: "+ args.work.startTime
-
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_adminThirdFragment_to_adminSecondFragment)
         }
@@ -131,15 +121,6 @@ class AdminThirdFragment : Fragment() {
                 val workInfoResponse = api?.workInfo(workId)
                 emit(workInfoResponse)
             }.catch { e ->
-//                val message = when(e){
-//                    is retrofit2.HttpException -> {
-//                        when(e.code()){
-//                            404 -> "Неверные логин или пароль"
-//                            else -> "Ошибка сервера"
-//                        }
-//                    }
-//                    else -> "Внутренняя ошибка, ${e.message}"
-//                }
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }.collect { workInfoResponse ->
                 binding.field.text = "Поле: "+workInfoResponse?.fieldName.toString()
@@ -165,14 +146,6 @@ class AdminThirdFragment : Fragment() {
                         binding.secondParameter.text = workInfoResponse?.secondParameterName.toString()+": "+ workInfoResponse?.secondParameterValue.toString()
                     }
                 }
-
-//                if (loginResponse?.role == "Оператор") {
-//                    findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
-//                } else if (loginResponse?.role == "Администратор") {
-//                    findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
-//                } //else {
-//                    Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_LONG).show()
-//                }
             }
         }
     }

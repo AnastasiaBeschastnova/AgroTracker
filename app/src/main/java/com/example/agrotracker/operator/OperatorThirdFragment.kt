@@ -4,16 +4,27 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
+import com.example.agrotracker.api.NetworkService
+import com.example.agrotracker.api.requests.InsertWorkRequest
+import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.databinding.FragmentOperatorThirdBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
@@ -25,6 +36,8 @@ import java.util.Date
 class OperatorThirdFragment : Fragment() {
 
     private var _binding: FragmentOperatorThirdBinding? = null
+    private val args: OperatorThirdFragmentArgs by navArgs()
+    private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     private val fusedLocationClient: FusedLocationProviderClient by lazy{
         LocationServices.getFusedLocationProviderClient(requireActivity())
     }
@@ -45,14 +58,16 @@ class OperatorThirdFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        selectWorkId(args.creatorId,args.startTime)
         binding.buttonEnd.setOnClickListener {
-            findNavController().navigate(R.id.action_operatorThirdFragment_to_operatorFourthFragment)
+            val endTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date())
+            val values = binding.workId.text.split(": ")
+            val workId = values[1]
+            updateWork(workId.toInt(),endTime)
         }
 
 
-        val simpleDateFormat = SimpleDateFormat("HH:mm:ss")
-        val time: String = simpleDateFormat.format(Date())
-        binding.time.text = "Вы в пути: " + time
+        binding.time.text = "Вы в пути c " +args.startTime
         var geo: String
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -72,6 +87,41 @@ class OperatorThirdFragment : Fragment() {
         }
 
 
+    }
+
+
+    private fun selectWorkId(creatorId: Int, startTime: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            flow{
+                val selectWorkIdResponse = api?.selectWorkId(creatorId,startTime)
+                emit(selectWorkIdResponse)
+            }.catch { e ->
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            }.collect { selectWorkIdResponse ->
+                if(selectWorkIdResponse?.work_id!=null)
+                {
+                    binding.workId.text = "ID работы: "+selectWorkIdResponse.work_id.toString()
+                }
+            }
+        }
+    }
+
+    private fun updateWork(workId: Int, endTime: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            flow{
+                val updateWorkResponse = api?.updateWork(
+                    UpdateWorkRequest(workId,endTime)
+                )
+                emit(updateWorkResponse)
+            }.catch { e ->
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            }.collect { updateWorkResponse ->
+                findNavController().navigate(
+                    OperatorThirdFragmentDirections
+                        .actionOperatorThirdFragmentToOperatorFourthFragment(workId,endTime,args.workTypeId)
+                )
+            }
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

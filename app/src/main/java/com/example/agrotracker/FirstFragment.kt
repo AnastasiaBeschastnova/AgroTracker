@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentFirstBinding
+import com.example.agrotracker.operator.OperatorSecondFragmentArgs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -67,12 +69,12 @@ class FirstFragment : Fragment() {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }.collect { loginResponse ->
                 if (loginResponse?.role == "Оператор") {
-                    findNavController().navigate(R.id.action_FirstFragment_to_operatorSecondFragment)
+                    findNavController().navigate(
+                        FirstFragmentDirections.actionFirstFragmentToOperatorSecondFragment(loginResponse.id)
+                    )
                 } else if (loginResponse?.role == "Администратор") {
                     findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
-                } //else {
-//                    Toast.makeText(requireContext(), "Пользователь не найден", Toast.LENGTH_LONG).show()
-//                }
+                }
             }
         }
     }

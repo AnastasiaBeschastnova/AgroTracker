@@ -29,11 +29,6 @@ class WorklistAdapter(private val dataSet: Array<WorklistItemModel>, val onItemC
         viewHolder.binding.technic.text=item?.technic
         viewHolder.binding.startTime.text=item?.startTime
 
-//        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
-//        val date: String = simpleDateFormat.format(item?.startTime)
-//        //println(date)
-        //viewHolder.binding.worktime.text=item?.startTime.toString()
-//        viewHolder.binding.worktime.text=date
 
         viewHolder.binding.root.setOnClickListener {
             if(item != null)

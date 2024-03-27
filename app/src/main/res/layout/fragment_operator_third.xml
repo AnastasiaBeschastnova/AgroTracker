@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment"
-    android:layout_marginVertical="5dp">
+    android:layout_marginVertical="5dp"
+    tools:context=".FirstFragment">
 
 
     <TextView
         android:id="@+id/time"
         style="@style/textview_style"
-        android:text="Вы в пути чч:мм:сс"
+        android:layout_height="wrap_content"
+        android:text="Вы в пути"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/geo_text"
+        app:layout_constraintBottom_toTopOf="@+id/workId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,25 +22,38 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
+        android:id="@+id/workId"
+        style="@style/textview_style"
+        android:layout_width="wrap_content"
+        android:text="ID работы:"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/geo_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time" />
+
+    <TextView
         android:id="@+id/geo_text"
         style="@style/textview_style"
+        android:layout_height="wrap_content"
         android:text="Местоположение:"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/button_end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
+        app:layout_constraintTop_toBottomOf="@+id/workId" />
 
     <Button
         android:id="@+id/button_end"
         style="@style/button_style"
         android:layout_gravity="center"
         android:text="Завершить"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geo_text" />
+        app:layout_constraintTop_toBottomOf="@+id/geo_text"
+        android:layout_marginTop="15dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
