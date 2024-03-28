@@ -8,7 +8,7 @@ fun WorklistResponse.toWorklistItemModel(): WorklistItemModel {
     return WorklistItemModel(
         fieldName = this.fieldName.orEmpty(),
         workType = this.workTypeName.orEmpty(),
-        culture = this.cultureName.orEmpty(),
+        endTime = this.endTime.toString(),//.orEmpty(),
         technic= this.technicName.orEmpty(),
         startTime = this.startTime.orEmpty(),
         workId = this.id ?: 0,

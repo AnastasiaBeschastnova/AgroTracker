@@ -12,8 +12,8 @@ data class WorklistResponse(
     val startTime: String? = null,
     @SerializedName("work_type_name")
     val workTypeName: String? = null,
-    @SerializedName("culture_name")
-    val cultureName: String? = null,
+    @SerializedName("end_time")
+    val endTime: String? = null,
     @SerializedName("technic_name")
     val technicName: String? = null
 )

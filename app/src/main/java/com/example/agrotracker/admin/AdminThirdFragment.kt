@@ -129,7 +129,7 @@ class AdminThirdFragment : Fragment() {
                 binding.technic.text = "Техника: "+workInfoResponse?.technicName.toString()
                 binding.workId.text = "ID: "+workInfoResponse?.workId.toString()
                 binding.creator.text = "Оператор: "+workInfoResponse?.creatorName.toString()
-                binding.workname.text = "Обработка: "+workInfoResponse?.workId.toString()
+                binding.workname.text = "Обработка: "+workInfoResponse?.name.toString()
                 binding.starttime.text = "Начало обработки: "+ workInfoResponse?.startTime.toString()
 
                 if(workInfoResponse?.endTime.isNullOrBlank()){

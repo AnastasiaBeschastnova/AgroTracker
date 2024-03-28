@@ -55,18 +55,18 @@
             app:layout_constraintTop_toBottomOf="@+id/work_id" />
 
         <TextView
-            android:id="@+id/start_time"
+            android:id="@+id/end_time"
             style="@style/textview_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Время начала"
+            android:text="Время окончания"
             android:textSize="18dp"
             android:ellipsize="end"
             android:layout_marginStart="15dp"
             android:maxLines="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@+id/culture" />
+            app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
         <TextView
             android:id="@+id/technic"
@@ -82,11 +82,11 @@
             app:layout_constraintTop_toBottomOf="@+id/worktype" />
 
         <TextView
-            android:id="@+id/culture"
+            android:id="@+id/start_time"
             style="@style/textview_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Культура"
+            android:text="Время начала"
             android:textSize="18dp"
             android:ellipsize="end"
             android:layout_marginStart="15dp"

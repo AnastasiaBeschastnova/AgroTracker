@@ -9,7 +9,7 @@ data class WorklistItemModel (
     val workId: Int,
     val fieldName: String,
     val workType: String,
-    val culture: String,
+    val endTime: String,
     val technic: String,
     val startTime: String
 ): Parcelable

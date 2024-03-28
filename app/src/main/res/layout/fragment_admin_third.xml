@@ -1,211 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    android:layout_height="wrap_content"
+    android:layout_margin="30dp"
+    android:orientation="vertical">
 
-    <LinearLayout
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="30dp">
+        android:layout_height="350dp"
+        android:clickable="true"
+        android:layout_marginBottom="10dp"/>
 
-        <org.osmdroid.views.MapView
-            android:id="@+id/mapview"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FirstFragment">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:clickable="true" />
-<!--        <TextView-->
-<!--            style="@style/textview_style"-->
-<!--            android:id="@+id/map"-->
-<!--            android:text="//здесь будет карта//"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_chainStyle="packed"-->
-<!--            android:background="@color/light_green"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            android:layout_width="350dp"-->
-<!--            android:layout_height="350dp"-->
-<!--            android:gravity="center"/>-->
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/workId"
-            android:text="ID:"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
-            android:layout_marginTop="5dp"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/field"
-            android:text="Поле:"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp" />
+            android:layout_margin="0dp"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/worktype"
-            android:text="Тип обработки:"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/workname"
-            android:text="Обработка: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
+<!--            <org.osmdroid.views.MapView-->
+<!--                android:id="@+id/mapview"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="350dp"-->
+<!--                android:clickable="true" />-->
 
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/culture"
-            android:text="Культура:"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
+            <TextView
+                android:id="@+id/workId"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="ID:"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/technic"
-            android:text="Техника:"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
+            <TextView
+                android:id="@+id/field"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Поле:"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/worktype"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Тип обработки:"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/workname"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Обработка: "
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/culture"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Культура:"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/technic"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Техника:"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
 
+            <TextView
+                android:id="@+id/creator"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Оператор: "
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/creator"
-            android:text="Оператор: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/starttime"
-            android:text="Начало обработки: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/endtime"
-            android:text="Конец обработки: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/fuel"
-            android:text="Топливо, л: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
-            android:visibility="gone"/>
-        <TextView
-            style="@style/textview_style"
-            android:id="@+id/second_parameter"
-            android:text="Параметр: "
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:background="@color/light_green"
-            android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
-            android:visibility="gone"/>
+            <TextView
+                android:id="@+id/starttime"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Начало обработки: "
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <Button
-            style="@style/button_style"
-            android:id="@+id/button_back"
-            android:text="Назад"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/endtime"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Конец обработки: "
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/fuel"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Топливо, л: "
+                android:textSize="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/second_parameter"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@color/light_green"
+                android:text="Параметр: "
+                android:textSize="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/button_back"
+                style="@style/button_style"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="Назад"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
