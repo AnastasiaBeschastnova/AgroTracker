@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.converters.toWorklistItemModel
 import com.example.agrotracker.databinding.FragmentAdminSecondBinding
@@ -16,14 +15,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import java.util.Date
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class AdminSecondFragment : Fragment() {
+class WorklistFragment : Fragment() {
 
     private var _binding: FragmentAdminSecondBinding? = null
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
@@ -71,7 +67,7 @@ class AdminSecondFragment : Fragment() {
                     dataSet = worksResponse?.map { it.toWorklistItemModel() }.orEmpty().toTypedArray(),
                     onItemClicked = { item ->
                         findNavController().navigate(
-                            AdminSecondFragmentDirections.actionAdminSecondFragmentToAdminThirdFragment(item)
+                            WorklistFragmentDirections.actionAdminSecondFragmentToAdminThirdFragment(item)
                         )
                     })
             }

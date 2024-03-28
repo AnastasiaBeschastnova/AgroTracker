@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.agrotracker.FirstFragment"
+        android:name="com.example.agrotracker.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/operatorSecondFragment"
-        android:name="com.example.agrotracker.operator.OperatorSecondFragment"
+        android:name="com.example.agrotracker.operator.StartWorkFormFragment"
         android:label="@string/operator" >
         <action
             android:id="@+id/action_operatorSecondFragment_to_operatorThirdFragment"
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/adminSecondFragment"
-        android:name="com.example.agrotracker.admin.AdminSecondFragment"
+        android:name="com.example.agrotracker.admin.WorklistFragment"
         android:label="Список работ" >
         <action
             android:id="@+id/action_adminSecondFragment_to_adminThirdFragment"
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/operatorThirdFragment"
-        android:name="com.example.agrotracker.operator.OperatorThirdFragment"
+        android:name="com.example.agrotracker.operator.ContinueWorkFragment"
         android:label="@string/operator" >
         <action
             android:id="@+id/action_operatorThirdFragment_to_operatorFourthFragment"
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/operatorFourthFragment"
-        android:name="com.example.agrotracker.operator.OperatorFourthFragment"
+        android:name="com.example.agrotracker.operator.EndWorkFormFragment"
         android:label="@string/operator" >
         <action
             android:id="@+id/action_operatorFourthFragment_to_FirstFragment"
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/adminThirdFragment"
-        android:name="com.example.agrotracker.admin.AdminThirdFragment"
+        android:name="com.example.agrotracker.admin.WorkInfoFragment"
         android:label="Подробнее" >
         <action
             android:id="@+id/action_adminThirdFragment_to_adminSecondFragment"

@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
-import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.databinding.FragmentOperatorFourthBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,11 +22,11 @@ import kotlinx.coroutines.launch
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class OperatorFourthFragment : Fragment() {
+class EndWorkFormFragment : Fragment() {
 
     private var _binding: FragmentOperatorFourthBinding? = null
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
-    private val args: OperatorFourthFragmentArgs by navArgs()
+    private val args: EndWorkFormFragmentArgs by navArgs()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!

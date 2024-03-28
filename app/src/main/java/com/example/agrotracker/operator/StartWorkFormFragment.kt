@@ -8,14 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.agrotracker.R
-import com.example.agrotracker.admin.AdminThirdFragmentArgs
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.InsertWorkRequest
-import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.databinding.FragmentOperatorSecondBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,10 +24,10 @@ import java.util.Date
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class OperatorSecondFragment : Fragment() {
+class StartWorkFormFragment : Fragment() {
 
     private var _binding: FragmentOperatorSecondBinding? = null
-    private val args: OperatorSecondFragmentArgs by navArgs()
+    private val args: StartWorkFormFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     var startTime: String = ""
     var workTypeId: Int = 0
@@ -109,7 +105,7 @@ class OperatorSecondFragment : Fragment() {
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }.collect { insertWorkResponse ->
                 findNavController().navigate(
-                    OperatorSecondFragmentDirections
+                    StartWorkFormFragmentDirections
                         .actionOperatorSecondFragmentToOperatorThirdFragment(args.creatorId,startTime,workTypeId)
                 )
             }

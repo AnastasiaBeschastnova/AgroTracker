@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
-import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.databinding.FragmentOperatorThirdBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,18 +22,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
 import java.util.Date
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class OperatorThirdFragment : Fragment() {
+class ContinueWorkFragment : Fragment() {
 
     private var _binding: FragmentOperatorThirdBinding? = null
-    private val args: OperatorThirdFragmentArgs by navArgs()
+    private val args: ContinueWorkFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     private val fusedLocationClient: FusedLocationProviderClient by lazy{
         LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -117,7 +112,7 @@ class OperatorThirdFragment : Fragment() {
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }.collect { updateWorkResponse ->
                 findNavController().navigate(
-                    OperatorThirdFragmentDirections
+                    ContinueWorkFragmentDirections
                         .actionOperatorThirdFragmentToOperatorFourthFragment(workId,endTime,args.workTypeId)
                 )
             }

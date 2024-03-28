@@ -26,16 +26,15 @@ import kotlinx.coroutines.launch
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
-import java.text.SimpleDateFormat
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class AdminThirdFragment : Fragment() {
+class WorkInfoFragment : Fragment() {
 
     private var _binding: FragmentAdminThirdBinding? = null
-    private val args: AdminThirdFragmentArgs by navArgs()
+    private val args: WorkInfoFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
 
     private val fusedLocationClient: FusedLocationProviderClient by lazy{

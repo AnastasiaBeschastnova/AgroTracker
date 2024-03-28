@@ -1,6 +1,5 @@
 package com.example.agrotracker
 
-import android.net.http.HttpException
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentFirstBinding
-import com.example.agrotracker.operator.OperatorSecondFragmentArgs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -21,7 +18,7 @@ import kotlinx.coroutines.launch
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val api by lazy{NetworkService.instance?.agroTrackerApi}
@@ -70,7 +67,7 @@ class FirstFragment : Fragment() {
             }.collect { loginResponse ->
                 if (loginResponse?.role == "Оператор") {
                     findNavController().navigate(
-                        FirstFragmentDirections.actionFirstFragmentToOperatorSecondFragment(loginResponse.id)
+                        LoginFragmentDirections.actionFirstFragmentToOperatorSecondFragment(loginResponse.id)
                     )
                 } else if (loginResponse?.role == "Администратор") {
                     findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
