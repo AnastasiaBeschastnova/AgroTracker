@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.UpdateWorkRequest
-import com.example.agrotracker.databinding.FragmentOperatorThirdBinding
+import com.example.agrotracker.databinding.FragmentContinueWorkBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +30,7 @@ import java.util.Date
  */
 class ContinueWorkFragment : Fragment() {
 
-    private var _binding: FragmentOperatorThirdBinding? = null
+    private var _binding: FragmentContinueWorkBinding? = null
     private val args: ContinueWorkFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     private val fusedLocationClient: FusedLocationProviderClient by lazy{
@@ -45,7 +45,7 @@ class ContinueWorkFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentOperatorThirdBinding.inflate(inflater, container, false)
+        _binding = FragmentContinueWorkBinding.inflate(inflater, container, false)
         return binding.root
 
     }

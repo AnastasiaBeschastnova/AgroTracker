@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
-import com.example.agrotracker.databinding.FragmentOperatorFourthBinding
+import com.example.agrotracker.databinding.FragmentEndWorkFormBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
  */
 class EndWorkFormFragment : Fragment() {
 
-    private var _binding: FragmentOperatorFourthBinding? = null
+    private var _binding: FragmentEndWorkFormBinding? = null
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     private val args: EndWorkFormFragmentArgs by navArgs()
     // This property is only valid between onCreateView and
@@ -36,7 +36,7 @@ class EndWorkFormFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentOperatorFourthBinding.inflate(inflater, container, false)
+        _binding = FragmentEndWorkFormBinding.inflate(inflater, container, false)
         return binding.root
 
     }

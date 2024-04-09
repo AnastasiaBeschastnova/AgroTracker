@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
-import com.example.agrotracker.databinding.FragmentAdminThirdBinding
+import com.example.agrotracker.databinding.FragmentWorkInfoBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +33,7 @@ import org.osmdroid.views.overlay.Marker
  */
 class WorkInfoFragment : Fragment() {
 
-    private var _binding: FragmentAdminThirdBinding? = null
+    private var _binding: FragmentWorkInfoBinding? = null
     private val args: WorkInfoFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
 
@@ -56,7 +56,7 @@ class WorkInfoFragment : Fragment() {
 
 
 
-        _binding = FragmentAdminThirdBinding.inflate(inflater, container, false)
+        _binding = FragmentWorkInfoBinding.inflate(inflater, container, false)
         return binding.root
 
     }

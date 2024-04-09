@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.converters.toWorklistItemModel
-import com.example.agrotracker.databinding.FragmentAdminSecondBinding
+import com.example.agrotracker.databinding.FragmentWorklistBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  */
 class WorklistFragment : Fragment() {
 
-    private var _binding: FragmentAdminSecondBinding? = null
+    private var _binding: FragmentWorklistBinding? = null
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
 
     // This property is only valid between onCreateView and
@@ -33,7 +33,7 @@ class WorklistFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentAdminSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentWorklistBinding.inflate(inflater, container, false)
         return binding.root
 
     }
