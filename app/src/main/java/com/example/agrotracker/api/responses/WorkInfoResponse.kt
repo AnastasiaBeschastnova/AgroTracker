@@ -27,5 +27,7 @@ data class WorkInfoResponse(
     val secondParameterName: String?=null,
     @SerializedName("second_parameter_value")
     val secondParameterValue: Int?=null,
+    @SerializedName("points")
+    val points: List<PointlistResponse>,
 
 )

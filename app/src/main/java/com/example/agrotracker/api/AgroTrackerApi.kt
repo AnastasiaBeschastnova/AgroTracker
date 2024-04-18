@@ -6,6 +6,7 @@ import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.api.responses.AuthInfoResponse
 import com.example.agrotracker.api.responses.CulturesResponse
 import com.example.agrotracker.api.responses.FieldsResponse
+import com.example.agrotracker.api.responses.PointlistResponse
 import com.example.agrotracker.api.responses.SelectWorkIdResponse
 import com.example.agrotracker.api.responses.StartFormResponse
 import com.example.agrotracker.api.responses.TechnicsResponse
@@ -29,17 +30,8 @@ public interface AgroTrackerApi {
     @GET("/agro_tracker/start_form")
     suspend fun getStartForm() : StartFormResponse
 
-//    @GET("/agro_tracker/worktypes")
-//    suspend fun getWorktypes() : List<WorktypesResponse>
-//
-//    @GET("/agro_tracker/fields")
-//    suspend fun getFields() : List<FieldsResponse>
-//
-//    @GET("/agro_tracker/cultures")
-//    suspend fun getCultures() : List<CulturesResponse>
-//
-//    @GET("/agro_tracker/technics")
-//    suspend fun getTechnics() : List<TechnicsResponse>
+//    @GET("/agro_tracker/points/{work_id}")
+//    suspend fun getPointlist(@Path("work_id") workId: Int) : List<PointlistResponse>
 
     @GET("/agro_tracker/works/{work_id}")
     suspend fun workInfo(@Path("work_id") workId: Int) : WorkInfoResponse
