@@ -17,6 +17,9 @@
 
     </style>
 
+
+
+
 <style name="text_input_layout_style" parent="Widget.Material3.TextInputLayout.OutlinedBox.Dense">
     <item name="boxBackgroundColor">@color/white</item>
     <item name="boxCornerRadiusBottomEnd">10dp</item>

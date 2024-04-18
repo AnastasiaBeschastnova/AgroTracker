@@ -22,6 +22,8 @@
         android:layout_height="match_parent"
         tools:context=".LoginFragment">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,6 +35,47 @@
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="350dp"-->
 <!--                android:clickable="true" />-->
+            <TextView
+                android:id="@+id/point_id"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/light_orange"
+                android:text="ID точки №_:"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/coords"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:background="@color/light_orange"
+                android:text="Координаты:"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/point_time"
+                style="@style/textview_style"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:background="@color/light_orange"
+                android:text="Время:"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
 
             <TextView
                 android:id="@+id/workId"
