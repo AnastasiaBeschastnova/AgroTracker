@@ -31,11 +31,15 @@ class WorklistAdapter(
         if (item?.endTime.toString()=="null") {
             viewHolder.binding.endTime.text = "в процессе"
         } else {
-            viewHolder.binding.endTime.text = item?.endTime
+            val end_time=convertTime(item?.endTime)
+            viewHolder.binding.endTime.text = end_time[0]+" "+end_time[1]//+" (UTC+"+end_time[2]+")"
+
         }
         viewHolder.binding.fieldName.text = item?.fieldName
         viewHolder.binding.technic.text = item?.technic
-        viewHolder.binding.startTime.text = item?.startTime
+        val start_time= convertTime(item?.startTime)
+
+        viewHolder.binding.startTime.text = start_time[0]+" "+start_time[1]//+" (UTC"+start_time[2]+")"
         viewHolder.binding.root.setOnClickListener {
             if (item != null)
                 onItemClicked.invoke(item)
@@ -46,3 +50,16 @@ class WorklistAdapter(
     override fun getItemCount() = dataSet.size
 
 }
+
+private fun convertTime(cTime:String?): List<String> {
+    val start_time_split=cTime?.split("\"")
+    val start_time_value=start_time_split?.get(1)?.split("T")
+    val start_date=start_time_value?.get(0)//yyyy-MM-dd
+    val start_time_tz=start_time_value?.get(1)//hh:mm:ss.SSSSSS+03:00
+    val start_time_tz_split=start_time_tz?.split("+")
+    val start_time=start_time_tz_split?.get(0)//hh:mm:ss.SSSSSS
+    val time_zone=start_time_tz_split?.get(1)//03:00
+    val convertedTime= listOf(start_date.toString(),start_time.toString(),time_zone.toString())
+    return convertedTime
+}
+

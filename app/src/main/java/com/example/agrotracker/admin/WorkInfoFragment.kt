@@ -90,14 +90,16 @@ class WorkInfoFragment : Fragment() {
                 binding.workId.text = "ID: " + workInfoResponse?.workId.toString()
                 binding.creator.text = "Оператор: " + workInfoResponse?.creatorName.toString()
                 binding.workname.text = "Обработка: " + workInfoResponse?.name.toString()
+                val start = convertTime(workInfoResponse?.startTime.toString())
                 binding.starttime.text =
-                    "Начало обработки: " + workInfoResponse?.startTime.toString()
+                    "Начало обработки: \n" + start[0]+" "+start[1]+" (UTC+"+start[2]+")"
 
                 if (workInfoResponse?.endTime.isNullOrBlank()) {
                     binding.endtime.text = "Конец обработки: не закончена"
                 } else {
+                    val end = convertTime(workInfoResponse?.endTime.toString())
                     binding.endtime.text =
-                        "Конец обработки: " + workInfoResponse?.endTime.toString()
+                        "Конец обработки: \n" + end[0]+" "+end[1]+" (UTC+"+end[2]+")"
                     if (workInfoResponse?.fuel != null) {
                         binding.fuel.isVisible = true
                         binding.fuel.text = "Топливо, л: " + workInfoResponse?.fuel.toString()
@@ -207,6 +209,19 @@ class WorkInfoFragment : Fragment() {
                 }
             }
         }
+    }
+
+
+    private fun convertTime(cTime:String?): List<String> {
+        val start_time_split=cTime?.split("\"")
+        val start_time_value=start_time_split?.get(1)?.split("T")
+        val start_date=start_time_value?.get(0)//yyyy-MM-dd
+        val start_time_tz=start_time_value?.get(1)//hh:mm:ss.SSSSSS+03:00
+        val start_time_tz_split=start_time_tz?.split("+")
+        val start_time=start_time_tz_split?.get(0)//hh:mm:ss.SSSSSS
+        val time_zone=start_time_tz_split?.get(1)//03:00
+        val convertedTime= listOf(start_date.toString(),start_time.toString(),time_zone.toString())
+        return convertedTime
     }
 
     override fun onDestroyView() {
