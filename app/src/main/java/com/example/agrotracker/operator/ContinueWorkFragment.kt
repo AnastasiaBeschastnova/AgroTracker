@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -128,7 +129,7 @@ class ContinueWorkFragment : Fragment() {
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 1000L,
-                0f,
+                1f,
                 LocationListener { location: Location? ->
                     if (location != null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)) {
                         val startPoint = GeoPoint(location.latitude, location.longitude)
@@ -138,11 +139,17 @@ class ContinueWorkFragment : Fragment() {
                         binding.mapview.getOverlays().clear()
                         binding.mapview.getOverlays().add(startMarker)
                         binding.mapview.controller.setCenter(startPoint)
+                        binding.loadingText.isVisible=false
+                        binding.geo.isVisible=true
+                        binding.mapview.isVisible=true
+                        binding.workId.isVisible=true
+                        //binding.workTime.isVisible=true
                         binding.geo.text ="Местоположение: \n"+location.latitude.toString()+" (ш.),\n"+location.longitude.toString()+" (д.)"
                         val point_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date()).toString()
                         workId?.let {
                             insertPoint(it, location.latitude, location.longitude, point_time)
                         }
+
                     }
                     else if(location == null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)){
                         val boundingBox = BoundingBox(geoVlg.altitude*1.01, geoVlg.longitude*1.01, geoVlg.altitude*0.99, geoVlg.longitude*0.99)
