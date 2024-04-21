@@ -1,16 +1,12 @@
 package com.example.agrotracker.admin
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Paint
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,8 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentWorkInfoBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -46,9 +40,6 @@ class WorkInfoFragment : Fragment() {
     private val api by lazy { NetworkService.instance?.agroTrackerApi }
     private val geoVlg = GeoPoint(48.7070, 44.5169)//Волгоград
 
-    private val fusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(requireActivity())
-    }
 
 
     // This property is only valid between onCreateView and
@@ -73,36 +64,14 @@ class WorkInfoFragment : Fragment() {
         binding.coords.isVisible = false
         binding.pointTime.isVisible = false
         workInfo(args.work.workId)
+        Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_adminThirdFragment_to_adminSecondFragment)
         }
-
         binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
+        binding.mapview.controller.setZoom(17.0)
 
 
-        //binding.mapview.setBuiltInZoomControls(true)
-//        val geoVlg = GeoPoint(48.7070, 44.5169)//Волгоград
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-
-                }
-        }
-
-//        binding.mapview.controller.setZoom(17.0)
-        binding.mapview.controller.setCenter(geoVlg)
-
-
-//        mMapController?.setZoom(13)
-//        mMapController?.setCenter(geo)
     }
 
     private fun workInfo(workId: Int) {
@@ -153,7 +122,8 @@ class WorkInfoFragment : Fragment() {
                         points.add(
                             LabelledGeoPoint(
                                 lats[i], lons[i], "№" + (i + 1).toString()
-                        ))
+                            )
+                        )
                     }
                     val pt = SimplePointTheme(points, true)
 
@@ -198,14 +168,21 @@ class WorkInfoFragment : Fragment() {
                         binding.mapview.controller.setCenter(
                             GeoPoint(
                                 minLat + (maxLat - minLat) / 2, minLong + (maxLong - minLong) / 2
-                            ))
+                            )
+                        )
                     } else {//если точка одна, то ее сделать центром
-                        val boundingBox = BoundingBox(lats[0]*1.01, lons[0]*1.01, lats[0]*0.99, lons[0]*0.99)
+                        val boundingBox = BoundingBox(
+                            lats[0] * 1.01,
+                            lons[0] * 1.01,
+                            lats[0] * 0.99,
+                            lons[0] * 0.99
+                        )
                         binding.mapview.zoomToBoundingBox(boundingBox.increaseByScale(0.05f), false)
                         binding.mapview.controller.setCenter(
                             GeoPoint(
                                 lats[0], lons[0]
-                            ))
+                            )
+                        )
                     }
 
                     //Отрисовка маршрута по точкам в виде полилинии
@@ -220,10 +197,10 @@ class WorkInfoFragment : Fragment() {
                     line.isGeodesic = true
                     binding.mapview.getOverlays().add(line)
                     binding.mapview.invalidate()
-                }
-                else{
+                } else {
                     binding.pointId.isVisible = true
                     binding.pointId.text = "Точек маршрута нет."
+
                     val boundingBox = BoundingBox(geoVlg.altitude*1.01, geoVlg.longitude*1.01, geoVlg.altitude*0.99, geoVlg.longitude*0.99)
                     binding.mapview.zoomToBoundingBox(boundingBox.increaseByScale(0.05f), false)
                     binding.mapview.controller.setCenter(geoVlg)
@@ -231,7 +208,6 @@ class WorkInfoFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
