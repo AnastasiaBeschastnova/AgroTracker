@@ -1,5 +1,6 @@
 package com.example.agrotracker.api
 
+import com.example.agrotracker.api.requests.InsertPointRequest
 import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
 import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.requests.UpdateWorkRequest
@@ -30,8 +31,8 @@ public interface AgroTrackerApi {
     @GET("/agro_tracker/start_form")
     suspend fun getStartForm() : StartFormResponse
 
-//    @GET("/agro_tracker/points/{work_id}")
-//    suspend fun getPointlist(@Path("work_id") workId: Int) : List<PointlistResponse>
+    @POST("/agro_tracker/points/insert")
+    suspend fun insertPoint(@Body insertPoint: InsertPointRequest) : Any
 
     @GET("/agro_tracker/works/{work_id}")
     suspend fun workInfo(@Path("work_id") workId: Int) : WorkInfoResponse

@@ -13,10 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.api.NetworkService
+import com.example.agrotracker.api.requests.InsertPointRequest
+import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.databinding.FragmentContinueWorkBinding
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +39,7 @@ import java.util.Date
  */
 class ContinueWorkFragment : Fragment() {
 
+    private var workId: Int ?= null
     private var _binding: FragmentContinueWorkBinding? = null
     private val args: ContinueWorkFragmentArgs by navArgs()
     private val api by lazy{ NetworkService.instance?.agroTrackerApi}
@@ -61,14 +65,15 @@ class ContinueWorkFragment : Fragment() {
         binding.buttonEnd.setOnClickListener {
             val endTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date())
             val values = binding.workId.text.split(": ")
-            val workId = values[1]
-            updateWork(workId.toInt(),endTime)
+            val workId = values[1].toInt()
+            updateWork(workId,endTime)
         }
 
         binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
         binding.mapview.controller.setZoom(17.0)
 
         listenLocation()
+
         Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
 
     }
@@ -84,7 +89,8 @@ class ContinueWorkFragment : Fragment() {
             }.collect { selectWorkIdResponse ->
                 if(selectWorkIdResponse?.work_id!=null)
                 {
-                    binding.workId.text = "ID работы: "+selectWorkIdResponse.work_id.toString()
+                    workId=selectWorkIdResponse.work_id
+                    binding.workId.text = "ID работы: "+workId.toString()
                 }
             }
         }
@@ -118,7 +124,7 @@ class ContinueWorkFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             val locationManager =
-                requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                requireActivity().application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
                 1000L,
@@ -133,6 +139,10 @@ class ContinueWorkFragment : Fragment() {
                         binding.mapview.getOverlays().add(startMarker)
                         binding.mapview.controller.setCenter(startPoint)
                         binding.geo.text ="Местоположение: \n"+location.latitude.toString()+" (ш.),\n"+location.longitude.toString()+" (д.)"
+                        val point_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date()).toString()
+                        workId?.let {
+                            insertPoint(it, location.latitude, location.longitude, point_time)
+                        }
                     }
                     else if(location == null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)){
                         val boundingBox = BoundingBox(geoVlg.altitude*1.01, geoVlg.longitude*1.01, geoVlg.altitude*0.99, geoVlg.longitude*0.99)
@@ -143,6 +153,29 @@ class ContinueWorkFragment : Fragment() {
                 })
         }
     }
+
+    private fun insertPoint(
+        workId: Int, lat: Double, lon: Double, pointTime: String
+    ) {
+        CoroutineScope(Dispatchers.Main).launch {
+            flow {
+                val insertPointResponse = api?.insertPoint(
+                    InsertPointRequest(
+                        workId,
+                        lat,
+                        lon,
+                        pointTime
+                    )
+                )
+                emit(insertPointResponse)
+            }.catch { e ->
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            }.collect { insertPointResponse ->
+                println(insertPointResponse)
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
