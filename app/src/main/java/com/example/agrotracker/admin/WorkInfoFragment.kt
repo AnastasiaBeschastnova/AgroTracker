@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.alpha
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ import org.osmdroid.api.IGeoPoint
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Polygon
 import org.osmdroid.views.overlay.Polyline
 import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint
 import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlay
@@ -81,6 +83,7 @@ class WorkInfoFragment : Fragment() {
                 emit(workInfoResponse)
             }.catch { e ->
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+                println(e.message)
             }.collect { workInfoResponse ->
                 binding.field.text = "Поле: " + workInfoResponse?.fieldName.toString()
                 binding.worktype.text =
@@ -116,6 +119,38 @@ class WorkInfoFragment : Fragment() {
                 val pointIds = workInfoResponse?.points?.map { it.id ?: 0 }.orEmpty()
 
 
+                //Отрисовка на карте границ поля,на котором выполнялась работа
+                val area = Polygon(binding.mapview)
+                val polygon: MutableList<GeoPoint> = ArrayList()
+                val field_area = workInfoResponse?.fieldArea
+                if(field_area!=null){
+                    for (i in 0..field_area.size.minus(1)) {
+                        polygon.add(GeoPoint(field_area[i][0], field_area[i][1]))
+                    }
+                }
+                area.points=polygon
+                area.fillColor=Color.argb(128, 120, 193, 85)//dark_green color
+                area.strokeColor=Color.parseColor("#FF78C155")
+                area.strokeWidth=5f
+                area.isGeodesic = true
+                area.infoWindow=null
+                binding.mapview.getOverlays().add(area)
+                binding.mapview.invalidate()
+
+                //Отрисовка маршрута по точкам в виде полилинии
+                val line = Polyline(binding.mapview)
+                val polyline: MutableList<GeoPoint> = ArrayList()
+                for (i in 0..lats.size - 1) {
+                    polyline.add(GeoPoint(lats[i], lons[i]))
+                }
+                line.setPoints(polyline)
+                line.width = 5f
+                line.setColor(Color.parseColor("#FFA500"))
+                line.isGeodesic = true
+                line.infoWindow=null
+                binding.mapview.getOverlays().add(line)
+                binding.mapview.invalidate()
+
                 //Вывод маршрута полевой работы на карту
                 if (pointTimes.size > 0) {//если есть какие-то точки маршрута
                     val points: MutableList<IGeoPoint> = ArrayList()
@@ -148,8 +183,9 @@ class WorkInfoFragment : Fragment() {
                         binding.pointId.text =
                             "ID точки №" + (point + 1).toString() + ": " + pointIds[point]
                         binding.coords.text =
-                            "Координаты: " + lats[point].toString() + " (ш.), " + lons[point].toString() + " (д.)"
-                        binding.pointTime.text = "Время: " + pointTimes[point]
+                            "Координаты: \n" + lats[point].toString() + " (ш.), \n" + lons[point].toString() + " (д.)"
+                        val cPointTime = convertTime(pointTimes[point])
+                        binding.pointTime.text = "Время: " + cPointTime[0]+" "+cPointTime[1]+" (UTC+"+cPointTime[2]+")"
                     }
                     binding.mapview.getOverlays().add(sfpo)
                     //Вычисление область, на которой располагается маршрут, для отображения только интересующей области
@@ -186,26 +222,13 @@ class WorkInfoFragment : Fragment() {
                             )
                         )
                     }
-
-                    //Отрисовка маршрута по точкам в виде полилинии
-                    val line = Polyline(binding.mapview)
-                    val polyline: MutableList<GeoPoint> = ArrayList()
-                    for (i in 0..lats.size - 1) {
-                        polyline.add(GeoPoint(lats[i], lons[i]))
-                    }
-                    line.setPoints(polyline)
-                    line.width = 5f
-                    line.setColor(Color.parseColor("#FFA500"))
-                    line.isGeodesic = true
-                    binding.mapview.getOverlays().add(line)
-                    binding.mapview.invalidate()
                 } else {
                     binding.pointId.isVisible = true
                     binding.pointId.text = "Точек маршрута нет."
 
-                    val boundingBox = BoundingBox(geoVlg.altitude*1.01, geoVlg.longitude*1.01, geoVlg.altitude*0.99, geoVlg.longitude*0.99)
+                    val boundingBox = BoundingBox(polygon[0].altitude*1.01, polygon[0].longitude*1.01, polygon[0].altitude*0.99, polygon[0].longitude*0.99)
                     binding.mapview.zoomToBoundingBox(boundingBox.increaseByScale(0.05f), false)
-                    binding.mapview.controller.setCenter(geoVlg)
+                    binding.mapview.controller.setCenter(polygon[0])//центр- одна из точек границ поля
                 }
             }
         }

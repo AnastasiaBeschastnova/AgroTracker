@@ -1,6 +1,9 @@
 package com.example.agrotracker.api.responses
 
 import com.google.gson.annotations.SerializedName
+import org.osmdroid.util.GeoPoint
+
+//import org.osmdroid.views.overlay.Polygon
 
 data class WorkInfoResponse(
     @SerializedName("work_id")
@@ -29,5 +32,7 @@ data class WorkInfoResponse(
     val secondParameterValue: Int?=null,
     @SerializedName("points")
     val points: List<PointlistResponse>,
+    @SerializedName("field_area")
+    val fieldArea: List<List<Double>>,
 
 )
