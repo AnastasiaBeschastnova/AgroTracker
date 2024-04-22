@@ -97,8 +97,8 @@ class WorkInfoFragment : Fragment() {
                 binding.starttime.text =
                     "Начало обработки: \n" + start[0]+" "+start[1]+" (UTC+"+start[2]+")"
 
-                if (workInfoResponse?.endTime.isNullOrBlank()) {
-                    binding.endtime.text = "Конец обработки: не закончена"
+                if (workInfoResponse?.endTime=="В процессе") {
+                    binding.endtime.text = "Конец обработки: в процессе"
                 } else {
                     val end = convertTime(workInfoResponse?.endTime.toString())
                     binding.endtime.text =
@@ -137,22 +137,23 @@ class WorkInfoFragment : Fragment() {
                 binding.mapview.getOverlays().add(area)
                 binding.mapview.invalidate()
 
-                //Отрисовка маршрута по точкам в виде полилинии
-                val line = Polyline(binding.mapview)
-                val polyline: MutableList<GeoPoint> = ArrayList()
-                for (i in 0..lats.size - 1) {
-                    polyline.add(GeoPoint(lats[i], lons[i]))
-                }
-                line.setPoints(polyline)
-                line.width = 5f
-                line.setColor(Color.parseColor("#FFA500"))
-                line.isGeodesic = true
-                line.infoWindow=null
-                binding.mapview.getOverlays().add(line)
-                binding.mapview.invalidate()
-
                 //Вывод маршрута полевой работы на карту
-                if (pointTimes.size > 0) {//если есть какие-то точки маршрута
+                if (pointTimes.size > 0 ) {//если есть какие-то точки маршрута
+                    //Отрисовка маршрута по точкам в виде полилинии
+                    val line = Polyline(binding.mapview)
+                    val polyline: MutableList<GeoPoint> = ArrayList()
+                    for (i in 0..lats.size - 1) {
+                        polyline.add(GeoPoint(lats[i], lons[i]))
+                    }
+                    line.setPoints(polyline)
+                    line.width = 5f
+                    line.setColor(Color.parseColor("#FFA500"))
+                    line.isGeodesic = true
+                    line.infoWindow=null
+                    binding.mapview.getOverlays().add(line)
+                    binding.mapview.invalidate()
+
+//                //Вывод маршрута полевой работы на карту
                     val points: MutableList<IGeoPoint> = ArrayList()
                     val len = pointTimes.size - 1
                     for (i in 0..len) {
@@ -236,14 +237,14 @@ class WorkInfoFragment : Fragment() {
 
 
     private fun convertTime(cTime:String?): List<String> {
-        val start_time_split=cTime?.split("\"")
-        val start_time_value=start_time_split?.get(1)?.split("T")
-        val start_date=start_time_value?.get(0)//yyyy-MM-dd
-        val start_time_tz=start_time_value?.get(1)//hh:mm:ss.SSSSSS+03:00
-        val start_time_tz_split=start_time_tz?.split("+")
-        val start_time=start_time_tz_split?.get(0)//hh:mm:ss.SSSSSS
-        val time_zone=start_time_tz_split?.get(1)//03:00
-        val convertedTime= listOf(start_date.toString(),start_time.toString(),time_zone.toString())
+            val start_time_split=cTime?.split("\"")
+            val start_time_value=start_time_split?.get(1)?.split("T")
+            val start_date=start_time_value?.get(0)//yyyy-MM-dd
+            val start_time_tz=start_time_value?.get(1)//hh:mm:ss.SSSSSS+03:00
+            val start_time_tz_split=start_time_tz?.split("+")
+            val start_time=start_time_tz_split?.get(0)//hh:mm:ss.SSSSSS
+            val time_zone=start_time_tz_split?.get(1)//03:00
+            val convertedTime= listOf(start_date.toString(),start_time.toString(),time_zone.toString())
         return convertedTime
     }
 
