@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    private val api by lazy{NetworkService.instance?.agroTrackerApi}
 
     // This property is only valid between onCreateView and
     // onDestroyView.
