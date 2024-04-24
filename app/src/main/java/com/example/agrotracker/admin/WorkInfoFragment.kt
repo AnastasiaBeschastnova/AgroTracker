@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.graphics.alpha
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.agrotracker.R
@@ -17,6 +18,7 @@ import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentWorkInfoBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -30,6 +32,14 @@ import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint
 import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlay
 import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlayOptions
 import org.osmdroid.views.overlay.simplefastpoint.SimplePointTheme
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 
 /**
@@ -98,7 +108,7 @@ class WorkInfoFragment : Fragment() {
                     "Начало обработки: \n" + start[0]+" "+start[1]+" (UTC+"+start[2]+")"
 
                 if (workInfoResponse?.endTime=="В процессе") {
-                    binding.endtime.text = "Конец обработки: в процессе"
+                    startTimer(workInfoResponse.startTime.toString())
                 } else {
                     val end = convertTime(workInfoResponse?.endTime.toString())
                     binding.endtime.text =
@@ -247,6 +257,23 @@ class WorkInfoFragment : Fragment() {
             val convertedTime= listOf(start_date.toString(),start_time.toString(),time_zone.toString())
         return convertedTime
     }
+
+
+    private fun startTimer(start: String) = CoroutineScope(Dispatchers.Main).launch{
+        while(lifecycle.currentState == Lifecycle.State.RESUMED){
+            binding.endtime.isVisible=true
+            val nowTime=Date()
+            val startTime=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").parse(start.split("\"")[1])
+            //разница в миллисекундах - перевод в часы, минуты, секунды, миллисекунды
+            val pathTime = kotlin.math.abs(nowTime.time - startTime.time)//миллисекунды
+            val path = SimpleDateFormat("HH:mm:ss" ).apply {
+                timeZone = TimeZone.getTimeZone("GMT+00:00")
+            }.format(Date(pathTime))
+            binding.endtime.text = "В пути: "+path
+            delay(1000)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

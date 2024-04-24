@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -40,6 +41,8 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -80,7 +83,7 @@ class ContinueWorkFragment : Fragment() {
         binding.mapview.controller.setZoom(17.0)
 
         listenLocation()
-
+        startTimer()
         Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
 
     }
@@ -152,7 +155,7 @@ class ContinueWorkFragment : Fragment() {
                                 binding.geo.isVisible=true
                                 binding.mapview.isVisible=true
                                 binding.workId.isVisible=true
-                                //binding.workTime.isVisible=true
+                                binding.workTime.isVisible=true
                                 binding.geo.text ="Местоположение: \n"+location.latitude.toString()+" (ш.),\n"+location.longitude.toString()+" (д.)"
                                 val point_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date()).toString()
                                 workId?.let {
@@ -171,40 +174,6 @@ class ContinueWorkFragment : Fragment() {
                 },
                 Looper.getMainLooper()
                 )
-//            val locationManager =
-//                requireActivity().application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//            locationManager.requestLocationUpdates(
-//                LocationManager.GPS_PROVIDER,
-//                1000L,
-//                1f,
-//                LocationListener { location: Location? ->
-//                    if (location != null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)) {
-//                        val startPoint = GeoPoint(location.latitude, location.longitude)
-//                        val startMarker = Marker(binding.mapview)
-//                        startMarker.setPosition(startPoint)
-//                        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-//                        binding.mapview.getOverlays().clear()
-//                        binding.mapview.getOverlays().add(startMarker)
-//                        binding.mapview.controller.setCenter(startPoint)
-//                        binding.loadingText.isVisible=false
-//                        binding.geo.isVisible=true
-//                        binding.mapview.isVisible=true
-//                        binding.workId.isVisible=true
-//                        //binding.workTime.isVisible=true
-//                        binding.geo.text ="Местоположение: \n"+location.latitude.toString()+" (ш.),\n"+location.longitude.toString()+" (д.)"
-//                        val point_time = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date()).toString()
-//                        workId?.let {
-//                            insertPoint(it, location.latitude, location.longitude, point_time)
-//                        }
-//
-//                    }
-//                    else if(location == null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)){
-//                        val boundingBox = BoundingBox(geoVlg.altitude*1.01, geoVlg.longitude*1.01, geoVlg.altitude*0.99, geoVlg.longitude*0.99)
-//                        binding.mapview.zoomToBoundingBox(boundingBox.increaseByScale(0.05f), false)
-//                        binding.mapview.controller.setCenter(geoVlg)
-//                        binding.geo.text ="Местоположение: не распознано"
-//                    }
-//                })
         }
     }
 
@@ -227,6 +196,21 @@ class ContinueWorkFragment : Fragment() {
             }.collect { insertPointResponse ->
                 println(insertPointResponse)
             }
+        }
+    }
+
+    private fun startTimer() = CoroutineScope(Dispatchers.Main).launch{
+        while(lifecycle.currentState == Lifecycle.State.RESUMED){
+
+            val nowTime=Date()
+            val startTime=SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").parse(args.startTime)
+            //разница в миллисекундах - перевод в часы, минуты, секунды, миллисекунды
+            val pathTime = kotlin.math.abs(nowTime.time - startTime.time)//миллисекунды
+            val path = SimpleDateFormat("HH:mm:ss" ).apply {
+                timeZone = TimeZone.getTimeZone("GMT+00:00")
+            }.format(Date(pathTime))
+            binding.workTime.text = "В пути: "+path
+            delay(1000)
         }
     }
 
