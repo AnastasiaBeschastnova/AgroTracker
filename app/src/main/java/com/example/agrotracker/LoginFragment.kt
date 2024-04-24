@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentLoginBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 /**
@@ -26,7 +26,35 @@ class LoginFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: LoginViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiAction.collect {
+                    when(it){
+                        is LoginViewModel.Actions.ToOperator -> {
+                            findNavController().navigate(
+                                LoginFragmentDirections
+                                    .actionFirstFragmentToOperatorSecondFragment(it.id)
+                            )
+                        }
+                        is LoginViewModel.Actions.ToAdmin -> {
+                            findNavController().navigate(
+                                LoginFragmentDirections
+                                    .actionFirstFragmentToAdminSecondFragment()
+                            )
+                        }
+                        is LoginViewModel.Actions.ShowToast -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,38 +69,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonLogIn.setOnClickListener {
-            login(
+            viewModel.login(
                 binding.loginInputEditText.text.toString(),
                 binding.loginInputEditText.text.toString(),
             )
-        }
-    }
-
-    private fun login(login: String, password: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            flow{
-                val loginResponse = api?.login(login, password)
-                emit(loginResponse)
-            }.catch { e ->
-                val message = when(e){
-                    is retrofit2.HttpException -> {
-                        when(e.code()){
-                            404 -> "Неверные логин или пароль"
-                            else -> "Ошибка сервера"
-                        }
-                    }
-                    else -> "Внутренняя ошибка, ${e.message}"
-                }
-                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-            }.collect { loginResponse ->
-                if (loginResponse?.role == "Оператор") {
-                    findNavController().navigate(
-                        LoginFragmentDirections.actionFirstFragmentToOperatorSecondFragment(loginResponse.id)
-                    )
-                } else if (loginResponse?.role == "Администратор") {
-                    findNavController().navigate(R.id.action_FirstFragment_to_adminSecondFragment)
-                }
-            }
         }
     }
 
