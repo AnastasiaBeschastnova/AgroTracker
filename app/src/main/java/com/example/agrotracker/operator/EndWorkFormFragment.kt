@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.agrotracker.R
-import com.example.agrotracker.api.NetworkService
-import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
 import com.example.agrotracker.databinding.FragmentEndWorkFormBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 /**
@@ -25,12 +22,55 @@ import kotlinx.coroutines.launch
 class EndWorkFormFragment : Fragment() {
 
     private var _binding: FragmentEndWorkFormBinding? = null
-    private val api by lazy{ NetworkService.instance?.agroTrackerApi}
     private val args: EndWorkFormFragmentArgs by navArgs()
+    private val viewModel: EndWorkFormViewModel by viewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.initData(args.workTypeId, args.workId)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiData.collect {
+                    when (it) {
+                        is EndWorkFormViewModel.Data.Fields-> {
+                            binding.seedsTextInputLayout.isVisible=it.seedsIsVisible
+                            binding.seeds.isVisible=it.seedsIsVisible
+                            binding.fertilizerTextInputLayout.isVisible=it.fertilizerIsVisible
+                            binding.fertilizer.isVisible=it.fertilizerIsVisible
+                            binding.harvestTextInputLayout.isVisible=it.harvestIsVisible
+                            binding.harvest.isVisible=it.harvestIsVisible
+                            binding.waterTextInputLayout.isVisible=it.waterIsVisible
+                            binding.water.isVisible=it.waterIsVisible
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiAction.collect {
+                    when (it) {
+                        is EndWorkFormViewModel.Actions.ShowToast -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is EndWorkFormViewModel.Actions.NavigateToLoginFragment -> {
+                            findNavController().navigate(
+                                EndWorkFormFragmentDirections.actionEndWorkFormFragmentToLoginFragment()
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+    }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -44,66 +84,17 @@ class EndWorkFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        when(args.workTypeId){
-            1 -> {//обработка почвы
-                //активна только строка для топлива
-            }
-            2 -> {//посев
-                binding.seedsTextInputLayout.isVisible=true
-                binding.seeds.isVisible=true
-            }
-            3 -> {//внесение удобрений
-                binding.fertilizerTextInputLayout.isVisible=true
-                binding.fertilizer.isVisible=true
-            }
-            4 -> {//уборка урожая
-                binding.harvestTextInputLayout.isVisible=true
-                binding.harvest.isVisible=true
-            }
-            5 -> {//полив
-                binding.waterTextInputLayout.isVisible=true
-                binding.water.isVisible=true
-            }
-        }
-
         binding.buttonSend.setOnClickListener {
-            when(args.workTypeId){
-                1 -> {//обработка почвы
-                    insertWorkParameterValues(args.workId,binding.fuelInputEditText.text.toString().toInt(),0)
-                }
-                2 -> {//посев
-                    insertWorkParameterValues(args.workId,binding.fuelInputEditText.text.toString().toInt(),binding.seedsInputEditText.text.toString().toInt())
-                }
-                3 -> {//внесение удобрений
-                    insertWorkParameterValues(args.workId,binding.fuelInputEditText.text.toString().toInt(),binding.fertilizerInputEditText.text.toString().toInt())
-                }
-                4 -> {//уборка урожая
-                    insertWorkParameterValues(args.workId,binding.fuelInputEditText.text.toString().toInt(),binding.harvestInputEditText.text.toString().toInt())
-                }
-                5 -> {//полив
-                    insertWorkParameterValues(args.workId,binding.fuelInputEditText.text.toString().toInt(),binding.waterInputEditText.text.toString().toInt())
-                }
-            }
-
+            viewModel.sendWorkParameterValues(
+                fuel = binding.fuelInputEditText.text.toString().toIntOrNull(),
+                water = binding.waterInputEditText.text.toString().toIntOrNull(),
+                fertilizer = binding.fertilizerInputEditText.text.toString().toIntOrNull(),
+                harvest = binding.harvestInputEditText.text.toString().toIntOrNull(),
+                seeds = binding.seedsInputEditText.text.toString().toIntOrNull(),
+            )
         }
 
-
     }
-    private fun insertWorkParameterValues(workId: Int, fuel: Int,secondParameterValue: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
-            flow{
-                val insertWorkParameterValuesResponse = api?.insertWorkParameterValues(
-                    InsertWorkParameterValuesRequest(workId,fuel,secondParameterValue)
-                )
-                emit(insertWorkParameterValuesResponse)
-            }.catch { e ->
-                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
-            }.collect { insertWorkParameterValuesResponse ->
-                findNavController().navigate(R.id.action_operatorFourthFragment_to_FirstFragment)
-            }
-        }
-    }
-
 
 
     override fun onDestroyView() {

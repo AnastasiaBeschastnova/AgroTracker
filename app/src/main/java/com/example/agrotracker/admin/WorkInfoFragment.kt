@@ -78,7 +78,7 @@ class WorkInfoFragment : Fragment() {
         workInfo(args.work.workId)
         Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
         binding.buttonBack.setOnClickListener {
-            findNavController().navigate(R.id.action_adminThirdFragment_to_adminSecondFragment)
+            findNavController().navigate(R.id.action_WorkInfoFragment_to_WorklistFragment)
         }
         binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
         binding.mapview.controller.setZoom(17.0)

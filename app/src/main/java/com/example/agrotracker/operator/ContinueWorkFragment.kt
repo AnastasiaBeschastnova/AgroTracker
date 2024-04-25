@@ -71,7 +71,7 @@ class ContinueWorkFragment : Fragment() {
                         is ContinueWorkViewModel.Actions.NavigateToEndWorkFormFragment -> {
                             findNavController().navigate(
                                 ContinueWorkFragmentDirections
-                                    .actionOperatorThirdFragmentToOperatorFourthFragment(
+                                    .actionContinueWorkFragmentToEndWorkFormFragment(
                                         it.workId, it.endTime, args.workTypeId.toInt()
                                     )
                             )

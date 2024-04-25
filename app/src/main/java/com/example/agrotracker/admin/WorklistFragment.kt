@@ -67,7 +67,7 @@ class WorklistFragment : Fragment() {
                     dataSet = worksResponse?.map { it.toWorklistItemModel() }.orEmpty().toTypedArray(),
                     onItemClicked = { item ->
                         findNavController().navigate(
-                            WorklistFragmentDirections.actionAdminSecondFragmentToAdminThirdFragment(item)
+                            WorklistFragmentDirections.actionWorklistFragmentToWorkInfoFragment(item)
                         )
                     })
             }

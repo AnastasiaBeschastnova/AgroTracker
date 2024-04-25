@@ -65,7 +65,7 @@ class StartWorkFormFragment : Fragment() {
                         is StartWorkFormViewModel.Actions.NavigateToContinueWorkFragment ->{
                             findNavController().navigate(
                                 StartWorkFormFragmentDirections
-                                    .actionOperatorSecondFragmentToOperatorThirdFragment(
+                                    .actionStartWorkFormFragmentToContinueWorkFragment(
                                         args.creatorId,
                                         it.startTime,
                                         it.workTypeId,

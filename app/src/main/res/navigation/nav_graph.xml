@@ -3,47 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LoginFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/LoginFragment"
         android:name="com.example.agrotracker.LoginFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_FirstFragment_to_adminSecondFragment"
-            app:destination="@id/adminSecondFragment" />
+            android:id="@+id/action_LoginFragment_to_WorklistFragment"
+            app:destination="@id/WorklistFragment" />
         <action
-            android:id="@+id/action_FirstFragment_to_operatorSecondFragment"
-            app:destination="@id/operatorSecondFragment" />
+            android:id="@+id/action_LoginFragment_to_StartWorkFormFragment"
+            app:destination="@id/StartWorkFormFragment" />
     </fragment>
     <fragment
-        android:id="@+id/operatorSecondFragment"
+        android:id="@+id/StartWorkFormFragment"
         android:name="com.example.agrotracker.operator.StartWorkFormFragment"
         android:label="@string/operator" >
         <action
-            android:id="@+id/action_operatorSecondFragment_to_operatorThirdFragment"
-            app:destination="@id/operatorThirdFragment" />
+            android:id="@+id/action_StartWorkFormFragment_to_ContinueWorkFragment"
+            app:destination="@id/ContinueWorkFragment" />
         <argument
             android:name="creatorId"
             app:argType="integer"/>
 
     </fragment>
     <fragment
-        android:id="@+id/adminSecondFragment"
+        android:id="@+id/WorklistFragment"
         android:name="com.example.agrotracker.admin.WorklistFragment"
         android:label="Список работ" >
         <action
-            android:id="@+id/action_adminSecondFragment_to_adminThirdFragment"
-            app:destination="@id/adminThirdFragment" />
+            android:id="@+id/action_WorklistFragment_to_WorkInfoFragment"
+            app:destination="@id/WorkInfoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/operatorThirdFragment"
+        android:id="@+id/ContinueWorkFragment"
         android:name="com.example.agrotracker.operator.ContinueWorkFragment"
         android:label="@string/operator" >
         <action
-            android:id="@+id/action_operatorThirdFragment_to_operatorFourthFragment"
-            app:destination="@id/operatorFourthFragment" />
+            android:id="@+id/action_ContinueWorkFragment_to_EndWorkFormFragment"
+            app:destination="@id/EndWorkFormFragment" />
         <argument
             android:name="creatorId"
             app:argType="integer" />
@@ -55,12 +55,15 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/operatorFourthFragment"
+        android:id="@+id/EndWorkFormFragment"
         android:name="com.example.agrotracker.operator.EndWorkFormFragment"
         android:label="@string/operator" >
         <action
-            android:id="@+id/action_operatorFourthFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_EndWorkFormFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_EndWorkFormFragment_to_StartWorkFormFragment"
+            app:destination="@id/StartWorkFormFragment" />
         <argument
             android:name="workId"
             app:argType="integer" />
@@ -72,12 +75,12 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/adminThirdFragment"
+        android:id="@+id/WorkInfoFragment"
         android:name="com.example.agrotracker.admin.WorkInfoFragment"
         android:label="Подробнее" >
         <action
-            android:id="@+id/action_adminThirdFragment_to_adminSecondFragment"
-            app:destination="@id/adminSecondFragment" />
+            android:id="@+id/action_WorkInfoFragment_to_WorklistFragment"
+            app:destination="@id/WorklistFragment" />
         <argument
             android:name="work"
             app:argType="com.example.agrotracker.admin.WorklistItemModel" />

@@ -37,13 +37,13 @@ class LoginFragment : Fragment() {
                         is LoginViewModel.Actions.ToOperator -> {
                             findNavController().navigate(
                                 LoginFragmentDirections
-                                    .actionFirstFragmentToOperatorSecondFragment(it.id)
+                                    .actionLoginFragmentToStartWorkFormFragment(it.id)
                             )
                         }
                         is LoginViewModel.Actions.ToAdmin -> {
                             findNavController().navigate(
                                 LoginFragmentDirections
-                                    .actionFirstFragmentToAdminSecondFragment()
+                                    .actionLoginFragmentToWorklistFragment()
                             )
                         }
                         is LoginViewModel.Actions.ShowToast -> {
