@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
         binding.buttonLogIn.setOnClickListener {
             viewModel.login(
                 binding.loginInputEditText.text.toString(),
-                binding.loginInputEditText.text.toString(),
+                binding.passwordInputEditText.text.toString(),
             )
         }
     }
