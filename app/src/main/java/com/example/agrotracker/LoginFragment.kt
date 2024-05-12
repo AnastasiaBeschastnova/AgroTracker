@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentLoginBinding
+import com.example.agrotracker.localdata.AgroTrackerPreferences
 import kotlinx.coroutines.launch
 
 /**
@@ -26,10 +27,11 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
+    private val preferences by lazy{ AgroTrackerPreferences(requireContext()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel.setPreferences(preferences)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {

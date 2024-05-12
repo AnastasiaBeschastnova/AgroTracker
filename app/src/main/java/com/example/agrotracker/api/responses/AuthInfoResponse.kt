@@ -6,4 +6,5 @@ data class AuthInfoResponse(
     val name: String,
     val password: String,
     val role: String,
+    val token: String,
 )
