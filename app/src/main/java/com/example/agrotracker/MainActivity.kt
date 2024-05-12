@@ -19,7 +19,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.fragment.findNavController
 import com.example.agrotracker.databinding.ActivityMainBinding
+import com.example.agrotracker.localdata.AgroTrackerPreferences
 import org.osmdroid.config.Configuration
 
 class MainActivity : AppCompatActivity() {
@@ -27,10 +29,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    private var preferences: AgroTrackerPreferences? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        if(preferences?.getToken()==null){
+//
+//
+//        } else{
+//
+//        }
 
 
 

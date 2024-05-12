@@ -50,6 +50,8 @@ public interface AgroTrackerApi {
     @POST("/agro_tracker/work_parameter_values")
     suspend fun insertWorkParameterValues(@Body insertWorkParameterValuesRequest: InsertWorkParameterValuesRequest) : Any
 
-//    @POST("/agro_tracker/users/user_key")
-//    suspend fun insertUserKey(@Body insertUserKeyResponse: UserKeyResponse) : Any
+    @GET("/agro_tracker/user_info")
+    suspend fun selectUserInfo(@Query("token") token: String) : AuthInfoResponse
+
+
 }

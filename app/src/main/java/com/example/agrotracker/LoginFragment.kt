@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setPreferences(preferences)
+        viewModel.checkToken()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {
@@ -68,7 +70,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if(viewModel.loginVisibility)
+        {
+            binding.helloText.text="Добро пожаловать!"
+            binding.autorizeCard.isVisible=viewModel.loginVisibility
+        }
         binding.buttonLogIn.setOnClickListener {
             viewModel.login(
                 binding.loginInputEditText.text.toString(),
