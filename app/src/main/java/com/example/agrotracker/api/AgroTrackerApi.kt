@@ -11,6 +11,7 @@ import com.example.agrotracker.api.responses.PointlistResponse
 import com.example.agrotracker.api.responses.SelectWorkIdResponse
 import com.example.agrotracker.api.responses.StartFormResponse
 import com.example.agrotracker.api.responses.TechnicsResponse
+import com.example.agrotracker.api.responses.UserKeyResponse
 import com.example.agrotracker.api.responses.WorklistResponse
 import com.example.agrotracker.api.responses.WorkInfoResponse
 import com.example.agrotracker.api.responses.WorktypesResponse
@@ -50,4 +51,6 @@ public interface AgroTrackerApi {
     @POST("/agro_tracker/work_parameter_values")
     suspend fun insertWorkParameterValues(@Body insertWorkParameterValuesRequest: InsertWorkParameterValuesRequest) : Any
 
+    @POST("/agro_tracker/users/user_key")
+    suspend fun insertUserKey(@Body insertUserKeyResponse: UserKeyResponse) : Any
 }

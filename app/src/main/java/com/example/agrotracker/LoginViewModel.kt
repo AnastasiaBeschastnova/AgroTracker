@@ -2,6 +2,9 @@ package com.example.agrotracker
 
 import androidx.lifecycle.ViewModel
 import com.example.agrotracker.api.NetworkService
+import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
+import com.example.agrotracker.api.responses.UserKeyResponse
+import com.example.agrotracker.operator.EndWorkFormViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -41,6 +44,24 @@ class LoginViewModel : ViewModel() {
                 } else if (loginResponse?.role == "Администратор") {
                     _uiAction.emit(Actions.ToAdmin())
                 }
+                if(loginResponse?.id != null)
+                {
+                    insertUserKey(loginResponse.id)
+                }
+            }
+        }
+    }
+
+    private fun insertUserKey(userId: Int){
+        CoroutineScope(Dispatchers.Main).launch {
+            flow {
+                val insertUserKeyResponse = api?.insertUserKey(
+                    UserKeyResponse(userId)
+                )
+                emit(insertUserKeyResponse)
+            }.catch { e ->
+                _uiAction.emit(Actions.ShowToast(e.message.orEmpty()))
+            }.collect { insertUserKeyResponse ->
             }
         }
     }
