@@ -2,6 +2,7 @@ package com.example.agrotracker.operator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.agrotracker.LoginViewModel
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.responses.CulturesResponse
@@ -41,8 +42,6 @@ class StartWorkFormViewModel : ViewModel() {
     private var fields: List<FieldsResponse>? = null
     private var technics: List<TechnicsResponse>? = null
     private var cultures: List<CulturesResponse>? = null
-
-
 
 
 

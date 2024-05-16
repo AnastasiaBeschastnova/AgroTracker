@@ -38,10 +38,29 @@ class LoginFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {
                     when(it){
-                        is LoginViewModel.Actions.ToOperator -> {
+                        is LoginViewModel.Actions.ToStartWork -> {
                             findNavController().navigate(
                                 LoginFragmentDirections
                                     .actionLoginFragmentToStartWorkFormFragment(it.id)
+                            )
+                        }
+                        is LoginViewModel.Actions.ToContinueWork -> {
+                            findNavController().navigate(
+                                LoginFragmentDirections
+                                    .actionLoginFragmentToContinueWorkFragment(
+                                        it.creatorId,
+                                        it.startTime,
+                                        it.workTypeId)
+                            )
+                        }
+                        is LoginViewModel.Actions.ToEndWork -> {
+                            findNavController().navigate(
+                                LoginFragmentDirections
+                                    .actionLoginFragmentToEndWorkFormFragment(
+                                        it.workId,
+                                        it.startTime,
+                                        it.workTypeId,
+                                        it.creatorId)
                             )
                         }
                         is LoginViewModel.Actions.ToAdmin -> {
@@ -75,12 +94,14 @@ class LoginFragment : Fragment() {
             binding.helloText.text="Добро пожаловать!"
             binding.autorizeCard.isVisible=viewModel.loginVisibility
         }
+        viewModel.checkWorks()
         binding.buttonLogIn.setOnClickListener {
             viewModel.login(
                 binding.loginInputEditText.text.toString(),
                 binding.passwordInputEditText.text.toString(),
             )
         }
+
     }
 
 

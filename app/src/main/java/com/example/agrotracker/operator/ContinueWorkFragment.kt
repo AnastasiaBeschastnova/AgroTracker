@@ -41,6 +41,7 @@ class ContinueWorkFragment : Fragment() {
     private val viewModel: ContinueWorkViewModel by viewModels()
     private val geoVlg = GeoPoint(48.7070, 44.5169)//Волгоград
 
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -72,7 +73,7 @@ class ContinueWorkFragment : Fragment() {
                             findNavController().navigate(
                                 ContinueWorkFragmentDirections
                                     .actionContinueWorkFragmentToEndWorkFormFragment(
-                                        it.workId, it.endTime, args.workTypeId.toInt()
+                                        it.workId, it.endTime, args.workTypeId.toInt(), args.creatorId
                                     )
                             )
                         }

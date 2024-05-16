@@ -45,7 +45,7 @@ class EndWorkFormViewModel : ViewModel() {
             }.catch { e ->
                 _uiAction.emit(EndWorkFormViewModel.Actions.ShowToast(e.message.orEmpty()))
             }.collect { insertWorkParameterValuesResponse ->
-                _uiAction.emit(EndWorkFormViewModel.Actions.NavigateToLoginFragment())
+                _uiAction.emit(EndWorkFormViewModel.Actions.NavigateToStartWorkFormFragment())
             }
         }
     }
@@ -100,7 +100,9 @@ class EndWorkFormViewModel : ViewModel() {
     sealed class Actions {
         class ShowToast(val message: String) : Actions()
 
-        class NavigateToLoginFragment(
+
+
+        class NavigateToStartWorkFormFragment(
         ) : Actions()
     }
 }

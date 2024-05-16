@@ -5,15 +5,11 @@ import com.example.agrotracker.api.requests.InsertWorkParameterValuesRequest
 import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.requests.UpdateWorkRequest
 import com.example.agrotracker.api.responses.AuthInfoResponse
-import com.example.agrotracker.api.responses.CulturesResponse
-import com.example.agrotracker.api.responses.FieldsResponse
-import com.example.agrotracker.api.responses.PointlistResponse
+import com.example.agrotracker.api.responses.SelectOperatorWorks
 import com.example.agrotracker.api.responses.SelectWorkIdResponse
 import com.example.agrotracker.api.responses.StartFormResponse
-import com.example.agrotracker.api.responses.TechnicsResponse
 import com.example.agrotracker.api.responses.WorklistResponse
 import com.example.agrotracker.api.responses.WorkInfoResponse
-import com.example.agrotracker.api.responses.WorktypesResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -52,6 +48,9 @@ public interface AgroTrackerApi {
 
     @GET("/agro_tracker/user_info")
     suspend fun selectUserInfo(@Query("token") token: String) : AuthInfoResponse
+
+    @GET("/agro_tracker/works/operator/")
+    suspend fun selectOperatorWorks(@Query("creator_id") creatorId: Int) : SelectOperatorWorks
 
 
 }

@@ -60,9 +60,9 @@ class EndWorkFormFragment : Fragment() {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
 
-                        is EndWorkFormViewModel.Actions.NavigateToLoginFragment -> {
+                        is EndWorkFormViewModel.Actions.NavigateToStartWorkFormFragment -> {
                             findNavController().navigate(
-                                EndWorkFormFragmentDirections.actionEndWorkFormFragmentToLoginFragment()
+                                EndWorkFormFragmentDirections.actionEndWorkFormFragmentToStartWorkFormFragment(args.creatorId)
                             )
                         }
                     }

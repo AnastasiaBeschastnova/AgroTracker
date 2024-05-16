@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_LoginFragment_to_StartWorkFormFragment"
             app:destination="@id/StartWorkFormFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_ContinueWorkFragment"
+            app:destination="@id/ContinueWorkFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_EndWorkFormFragment"
+            app:destination="@id/EndWorkFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/StartWorkFormFragment"
@@ -53,6 +59,7 @@
         <argument
             android:name="workTypeId"
             app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/EndWorkFormFragment"
@@ -64,6 +71,9 @@
         <action
             android:id="@+id/action_EndWorkFormFragment_to_StartWorkFormFragment"
             app:destination="@id/StartWorkFormFragment" />
+        <action
+            android:id="@+id/action_LoginFragment_to_StartWorkFormFragment"
+            app:destination="@id/StartWorkFormFragment" />
         <argument
             android:name="workId"
             app:argType="integer" />
@@ -72,6 +82,9 @@
             app:argType="string" />
         <argument
             android:name="workTypeId"
+            app:argType="integer" />
+        <argument
+            android:name="creatorId"
             app:argType="integer" />
     </fragment>
     <fragment
