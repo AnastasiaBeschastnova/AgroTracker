@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setPreferences(preferences)
-        viewModel.checkToken()
+        //viewModel.checkToken()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {
@@ -76,6 +76,14 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginVisibility.collect{
+                    binding.helloText.text="Добро пожаловать!"
+                    binding.autorizeCard.isVisible=it
+                }
+            }
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,14 +95,15 @@ class LoginFragment : Fragment() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.checkToken()
+        binding.loginInputEditText.text = null
+        binding.passwordInputEditText.text = null
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(viewModel.loginVisibility)
-        {
-            binding.helloText.text="Добро пожаловать!"
-            binding.autorizeCard.isVisible=viewModel.loginVisibility
-        }
-        viewModel.checkWorks()
         binding.buttonLogIn.setOnClickListener {
             viewModel.login(
                 binding.loginInputEditText.text.toString(),

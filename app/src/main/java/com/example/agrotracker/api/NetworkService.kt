@@ -27,7 +27,7 @@ class NetworkService private constructor() {
 
     companion object {
         private var mInstance: NetworkService? = null
-        private const val BASE_URL = "http://192.168.0.103:5000/"
+        private const val BASE_URL = "http://192.168.0.105:5000/"
         val instance: NetworkService?
             get() {
                 if (mInstance == null) {

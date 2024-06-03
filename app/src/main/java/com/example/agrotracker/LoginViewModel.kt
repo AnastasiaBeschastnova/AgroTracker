@@ -1,13 +1,17 @@
 package com.example.agrotracker
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.localdata.AgroTrackerPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -26,7 +30,9 @@ class LoginViewModel : ViewModel() {
 
     private var preferences: AgroTrackerPreferences? = null
 
-    var loginVisibility = false
+
+    private val _loginVisibility = MutableStateFlow<Boolean>(false)
+    val loginVisibility: StateFlow<Boolean> = _loginVisibility.asStateFlow()
     private var startTime: String = ""
     private var creatorId: Int = 0
 
@@ -35,13 +41,12 @@ class LoginViewModel : ViewModel() {
         this.preferences = preferences
     }
 
-    fun checkToken(){
+    fun checkToken() = viewModelScope.launch{
         if(preferences?.getToken()!=null){
             selectUserInfo(preferences?.getToken().toString())
-            loginVisibility = false
         }
         else{//если нет сохраненного токена, нужно авторизоваться
-            loginVisibility=true
+            _loginVisibility.emit(true)
         }
     }
     fun checkWorks(){
@@ -67,7 +72,6 @@ class LoginViewModel : ViewModel() {
                 }
                 _uiAction.emit(Actions.ShowToast(message))
             }.collect { selectUserInfoResponse ->
-
                 if (selectUserInfoResponse?.role == "Оператор") {
                     selectOperatorWorks(selectUserInfoResponse.id)
                 } else if (selectUserInfoResponse?.role == "Администратор") {
