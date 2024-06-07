@@ -37,7 +37,6 @@ class WorkInfoFragment : Fragment() {
     private var _binding: FragmentWorkInfoBinding? = null
     private val args: WorkInfoFragmentArgs by navArgs()
     private val viewModel: WorkInfoViewModel by viewModels()
-//    private val geoVlg = GeoPoint(48.7070, 44.5169)//Волгоград
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -51,10 +50,11 @@ class WorkInfoFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiData.collect {
                     when (it) {
+                        //отображение подробной информации о полевой работе
                         is WorkInfoViewModel.Data.WorkInfo -> {
                             showWorkInfo(it)
                         }
-
+                        // обновление таймера выполнения полевой работы
                         is WorkInfoViewModel.Data.Timer -> {
                             updateTimerText(it)
                         }
@@ -69,10 +69,11 @@ class WorkInfoFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {
                     when (it) {
+                        // отображение всплывающих сообщений (тостов) в нижней части экрана
                         is WorkInfoViewModel.Actions.ShowToast -> {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
-
+                        // навигация на экран со списком полевых работ
                         is WorkInfoViewModel.Actions.NavigateToWorkListFragment -> {
                             findNavController().navigate(
                                 WorkInfoFragmentDirections
@@ -98,20 +99,22 @@ class WorkInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //изначально информации о точках не видно, пока на какую-либо точку маршрута не нажмет пользователь
         binding.pointId.isVisible = false
         binding.coords.isVisible = false
         binding.pointTime.isVisible = false
-        viewModel.getWorkInfo(args.work.workId)
+        viewModel.getWorkInfo(args.work.workId)//получение информации о полевой работе по ее ID
         Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
         binding.buttonBack.setOnClickListener {
             findNavController().navigate(R.id.action_WorkInfoFragment_to_WorklistFragment)
         }
+        //отображение карты
         binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
         binding.mapview.controller.setZoom(17.0)
     }
 
     private fun showWorkInfo(workInfo: WorkInfoViewModel.Data.WorkInfo) {
+        //отображение подробной информации о полевой работе
         binding.field.text = "Поле: " + workInfo.field
         binding.worktype.text = "Тип обработки: " + workInfo.workType
         binding.culture.text = "Культура: " + workInfo.culture
@@ -119,13 +122,15 @@ class WorkInfoFragment : Fragment() {
         binding.workId.text = "ID: " + workInfo.workId
         binding.creator.text = "Оператор: " + workInfo.creator
         binding.workname.text = "Обработка: " + workInfo.workName
-        val start = convertTime(workInfo.startTime)
+        val start = convertTime(workInfo.startTime)//разбиваем пришедшую строку на дату, время и часовой пояс
         binding.starttime.text =
             "Начало обработки: \n" + start[0] + " " + start[1] + " (UTC+" + start[2] + ")"
         if (workInfo.endTime != "В процессе") {
+            //если работа завершена, то вывод времени окончания выполнения полевой работы
             val end = convertTime(workInfo.endTime)
             binding.endtime.text =
                 "Конец обработки: \n" + end[0] + " " + end[1] + " (UTC+" + end[2] + ")"
+            //если параметры данных, вводимых по окончании полевой работы, не пусты, вывести их
             if (workInfo.fuel != "null") {
                 binding.fuel.isVisible = true
                 binding.fuel.text = "Топливо, л: " + workInfo.fuel.toString()
@@ -136,7 +141,7 @@ class WorkInfoFragment : Fragment() {
                     workInfo.secondParameterName.toString() + ": " + workInfo.secondParameterValue.toString()
             }
         }
-
+        //получение точек маршрута сельскохозяйственной техники
         val pointTimes = workInfo.pointTimes
         val lats = workInfo.lats
         val lons = workInfo.lons
@@ -203,7 +208,7 @@ class WorkInfoFragment : Fragment() {
                             .setTextStyle(textStyle)
 
                         val sfpo = SimpleFastPointOverlay(pt, opt)
-
+                        //отображение подробной информации о точке маршрута, на которую нажал пользователь
                         sfpo.setOnClickListener { points, point ->
                             binding.pointId.isVisible = true
                             binding.coords.isVisible = true
@@ -216,7 +221,7 @@ class WorkInfoFragment : Fragment() {
                             binding.pointTime.text =
                                 "Время: " + cPointTime[0] + " " + cPointTime[1] + " (UTC+" + cPointTime[2] + ")"
                         }
-                        binding.mapview.getOverlays().add(sfpo)
+                        binding.mapview.getOverlays().add(sfpo)//добавление слоя с маршрутом на карту
                     }
                 }
             }
@@ -234,18 +239,20 @@ class WorkInfoFragment : Fragment() {
                 )
             }
         }
-        if (pointTimes?.size?.compareTo(0) == 0) {
+        if (pointTimes?.size?.compareTo(0) == 0) {//если нет маршрута сельскохозяйственной техники
             binding.pointId.isVisible = true
             binding.pointId.text = "Точек маршрута нет."
         }
     }
 
     private fun updateTimerText(timer: WorkInfoViewModel.Data.Timer) {
+        //таймер времени выполнения полевой работы
         binding.endtime.text = "В пути: " + timer.timer
     }
 
 
     private fun convertTime(cTime: String?): List<String> {
+        //разделение строки с датой и временем на дату, время и часовой пояс
         val start_time_split = cTime?.split("\"")
         val start_time_value = start_time_split?.get(1)?.split("T")
         val start_date = start_time_value?.get(0)//yyyy-MM-dd

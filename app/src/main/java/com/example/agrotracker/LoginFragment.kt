@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.databinding.FragmentLoginBinding
 import com.example.agrotracker.localdata.AgroTrackerPreferences
 import kotlinx.coroutines.launch
@@ -33,7 +32,6 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setPreferences(preferences)
-        //viewModel.checkToken()
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiAction.collect {
@@ -79,6 +77,8 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginVisibility.collect{
+                    //отображаемость полей для ввода логина и пароля, а также кнопки "Войти"
+                    //отображается, если пользователь не авторизован
                     binding.helloText.text="Добро пожаловать!"
                     binding.autorizeCard.isVisible=it
                 }
@@ -97,7 +97,8 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.checkToken()
+        viewModel.checkToken()//проверка наличия токена
+        //очищать поля для логина и пароля при новом открытии экрана
         binding.loginInputEditText.text = null
         binding.passwordInputEditText.text = null
     }
@@ -105,6 +106,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonLogIn.setOnClickListener {
+            //авторизация по введенным ползователем данным
             viewModel.login(
                 binding.loginInputEditText.text.toString(),
                 binding.passwordInputEditText.text.toString(),

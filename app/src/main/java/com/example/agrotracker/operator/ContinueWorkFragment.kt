@@ -96,8 +96,9 @@ class ContinueWorkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.selectWorkId(args.creatorId, args.startTime)
+        viewModel.selectWorkId(args.creatorId, args.startTime)//вывод ID созданной оператором полевой работы
         binding.buttonEnd.setOnClickListener {
+            //обновить в базе данных полевую работу - добавить время окончания ее выполнения
             viewModel.sendUpdatedWork(
                 workId = binding.workId.text.split(": ")[1].toInt(),
                 endTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date()),
@@ -105,16 +106,16 @@ class ContinueWorkFragment : Fragment() {
             )
         }
 
-        listenLocation()
+        listenLocation()//прослушивать геолокацию устройства
 
-        binding.mapview.setTileSource(TileSourceFactory.MAPNIK)
+        binding.mapview.setTileSource(TileSourceFactory.MAPNIK)//отображать на карте с актуальную геолокацию устройства оператора
         binding.mapview.controller.setZoom(17.0)
         Toast.makeText(requireContext(), "Карта загружается. Подождите", Toast.LENGTH_LONG).show()
 
     }
 
 
-    private fun listenLocation() {
+    private fun listenLocation() {//прослушивание локации устройства оператора
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -153,6 +154,7 @@ class ContinueWorkFragment : Fragment() {
         binding.workId.text = "ID работы: " + data.workId.toString()
 
         if (location != null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)) {
+            //обновлять информацию о геолокации
             val startPoint = GeoPoint(location.latitude, location.longitude)
             val startMarker = Marker(binding.mapview)
             startMarker.setPosition(startPoint)
@@ -168,6 +170,7 @@ class ContinueWorkFragment : Fragment() {
             binding.geo.text =
                 "Местоположение: \n" + location.latitude.toString() + " (ш.),\n" + location.longitude.toString() + " (д.)"
         } else if (location == null && (lifecycle.currentState == Lifecycle.State.STARTED || lifecycle.currentState == Lifecycle.State.RESUMED)) {
+            //если геолокация не определена, отобразить на карте фрагмент г. Волгограда
             val boundingBox = BoundingBox(
                 geoVlg.altitude * 1.01,
                 geoVlg.longitude * 1.01,

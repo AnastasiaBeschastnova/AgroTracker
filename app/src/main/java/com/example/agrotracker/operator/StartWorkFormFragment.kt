@@ -113,6 +113,7 @@ class StartWorkFormFragment : Fragment() {
     }
 
     private fun createAdapters(fields: StartWorkFormViewModel.Data.FieldsLists) {
+        //создание выпадающих списков с типами полевых работ, культурами, полями, техникой
         val worktypesSpinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireContext(), R.layout.item_spinner, fields.worktypesNames.orEmpty().toTypedArray()
         )

@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.agrotracker.databinding.ItemWorklistBinding
-import java.text.SimpleDateFormat
-import java.util.Date
-
 
 class WorklistAdapter(
     private val dataSet: Array<WorklistItemModel>,
@@ -52,6 +49,7 @@ class WorklistAdapter(
 }
 
 private fun convertTime(cTime:String?): List<String> {
+    //разбиение строки с датой и временем на дату, время и часовой пояс
     val start_time_split=cTime?.split("\"")
     val start_time_value=start_time_split?.get(1)?.split("T")
     val start_date=start_time_value?.get(0)//yyyy-MM-dd

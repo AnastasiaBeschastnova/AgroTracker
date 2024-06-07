@@ -1,7 +1,6 @@
 package com.example.agrotracker.operator
 
 import android.location.Location
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.agrotracker.api.NetworkService
@@ -38,11 +37,13 @@ class ContinueWorkViewModel : ViewModel() {
     val uiAction: SharedFlow<ContinueWorkViewModel.Actions> = _uiAction.asSharedFlow()
 
     fun sendUpdatedWork(workId: Int, endTime: String, workTypeId: Int) = viewModelScope.launch {
+        //добавить существующей полевой работе в базе данных время окончания ее выполнения, остановить таймер времени в пути
         updateWork(workId, endTime, workTypeId)
         stopTimer()
     }
 
     private fun updateWork(workId: Int, endTime: String, workTypeId: Int) {
+        //обновить полевую работу в базе данных
         CoroutineScope(Dispatchers.Main).launch {
             flow {
                 val updateWorkResponse = api?.updateWork(
@@ -58,6 +59,7 @@ class ContinueWorkViewModel : ViewModel() {
     }
 
     fun sendPoint(location: Location) = viewModelScope.launch {
+        //отправлять геолокацию устройства оператора для построения маршрута сельскохозяйственной техники
         this@ContinueWorkViewModel.location = location
         updateUiData()
         insertPoint(location.latitude, location.longitude)
@@ -89,6 +91,7 @@ class ContinueWorkViewModel : ViewModel() {
     }
 
     fun selectWorkId(creatorId: Int, startTime: String) {
+        //получить ID созданной оператором полевой работы
         CoroutineScope(Dispatchers.Main).launch {
             this@ContinueWorkViewModel.startTime =
                 SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").parse(startTime)
@@ -107,6 +110,7 @@ class ContinueWorkViewModel : ViewModel() {
     }
 
     private fun updateUiData() = viewModelScope.launch {
+        //обновлять таймер и геолокацию
         workId?.let {
             if (location != null)
                 _uiData.value = Data.UiData(
@@ -120,6 +124,7 @@ class ContinueWorkViewModel : ViewModel() {
     }
 
     private fun startTimer() = CoroutineScope(Dispatchers.Main).launch {
+        //запуск таймера в пути
         timerIsStarted = true
         while (timerIsStarted) {
             val nowTime = Date()
@@ -130,7 +135,7 @@ class ContinueWorkViewModel : ViewModel() {
         }
     }
 
-    private fun stopTimer() {
+    private fun stopTimer() {//остановка таймера
         timerIsStarted = false
     }
 

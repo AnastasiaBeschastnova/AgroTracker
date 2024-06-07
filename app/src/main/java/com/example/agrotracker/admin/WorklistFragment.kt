@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.agrotracker.api.responses.WorklistResponse
 import com.example.agrotracker.converters.toWorklistItemModel
 import com.example.agrotracker.databinding.FragmentWorklistBinding
 import kotlinx.coroutines.launch
@@ -52,6 +51,7 @@ class WorklistFragment : Fragment() {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }
                         is WorklistViewModel.Actions.NavigateToWorkInfoFragment ->{
+                            //навигация на экран с выводом подробной информации о выбранной из списка полевой работе
                             findNavController().navigate(
                                WorklistFragmentDirections
                                     .actionWorklistFragmentToWorkInfoFragment(
@@ -76,7 +76,7 @@ class WorklistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getWorklist()
+        viewModel.getWorklist()//список полевых работ
         Toast.makeText(requireContext(), "Список работ загружается.", Toast.LENGTH_SHORT).show()
     }
     private fun createAdapter(dataset: WorklistViewModel.Data.WorklistResponse?) {

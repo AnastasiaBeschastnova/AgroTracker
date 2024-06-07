@@ -2,7 +2,6 @@ package com.example.agrotracker.operator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.agrotracker.LoginViewModel
 import com.example.agrotracker.api.NetworkService
 import com.example.agrotracker.api.requests.InsertWorkRequest
 import com.example.agrotracker.api.responses.CulturesResponse
@@ -46,6 +45,7 @@ class StartWorkFormViewModel : ViewModel() {
 
 
     fun getStartForm() {
+        //получение списков параметров, выбираемых при создании новой полевой работы: тип полевой работы, культура, техника, поле
         CoroutineScope(Dispatchers.Main).launch {
             flow {
                 val startFormResponse = api?.getStartForm()
@@ -78,6 +78,7 @@ class StartWorkFormViewModel : ViewModel() {
     }
 
     fun selectWorkType(worktype: String){
+        //получение ID типа полевой работы
         val worktypeId =
             workTypes?.getWIdByName(worktype)
         _uiData.value = Data.IsCulturesVisible(worktypeId == 2)
@@ -90,12 +91,14 @@ class StartWorkFormViewModel : ViewModel() {
         technic:String,
         workname:String,
         creatorId:Int) = viewModelScope.launch{
+            //добавление в базу данных новой полевой работы
         startTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSX").format(Date())
         val worktype_id =
             workTypes?.getWIdByName(worktype)
         val field_id = fields?.getFIdByName(field)
         val technic_id = technics?.getTIdByName(technic)
         if (workname != "") {
+            //если название полевой работы не введено, она не создастся
             var culture =
                 if (worktype_id == 2) cultures?.getCIdByName(culture) ?: 0
                 else 0

@@ -34,6 +34,7 @@ class WorkInfoViewModel : ViewModel() {
 
 
     fun getWorkInfo(workId: Int) {
+        //получение информации о полевой работе
         CoroutineScope(Dispatchers.Main).launch {
             flow {
                 val workInfoResponse = api?.workInfo(workId)
@@ -42,6 +43,7 @@ class WorkInfoViewModel : ViewModel() {
                 _uiAction.emit(Actions.ShowToast(e.message.orEmpty()))
             }.collect { workInfoResponse ->
                 if (workInfoResponse?.endTime == "В процессе") {
+                    //если работа в процессе выполнения, запустить таймер со временем в пути
                     val start = workInfoResponse.startTime?.split("\"")
                     this@WorkInfoViewModel.startTime =
                         SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").parse(start?.get(1))
@@ -52,6 +54,7 @@ class WorkInfoViewModel : ViewModel() {
                 var workArea: List<Double>? = listOf()
                 var workCenter: List<Double>? = listOf()
                 var workScale = 0.05f
+                //определяем участок карты
                 if (lats.size != 0 && lons.size != 0) {
                     var minLat = lats[0]
                     var maxLat = lats[0]
@@ -63,7 +66,7 @@ class WorkInfoViewModel : ViewModel() {
                         if (lons[i] < minLong) minLong = lons[i]
                         if (lons[i] > maxLong) maxLong = lons[i]
                     }
-
+                    //определяем центр отображаемой карты для удобного размещения маршрута сельскохозяйственной техники
                     if (lats.size > 1 && minLat != maxLat && minLong != maxLong) {//если точка не одна и они все разные
                         workArea = listOf(maxLat, maxLong, minLat, minLong)
                         workCenter =
@@ -99,7 +102,7 @@ class WorkInfoViewModel : ViewModel() {
                     workCenter = fieldAreaPoint
                 }
 
-
+                //данные о полевой работе
                 _uiData.value = Data.WorkInfo(
                     field = workInfoResponse?.fieldName.toString(),
                     workType = workInfoResponse?.workTypeName.toString(),
@@ -127,6 +130,7 @@ class WorkInfoViewModel : ViewModel() {
     }
 
     private fun startTimer() = CoroutineScope(Dispatchers.Main).launch {
+        //запуск таймера в пути
         timerIsStarted = true
         while (timerIsStarted) {
             val nowTime = Date()
@@ -138,6 +142,7 @@ class WorkInfoViewModel : ViewModel() {
     }
 
     private fun updateTimerText() = viewModelScope.launch {
+        //обновление текста таймера
         _uiData.value = Data.Timer(
             timer = SimpleDateFormat("HH:mm:ss").apply {
                 timeZone = TimeZone.getTimeZone("GMT+00:00")

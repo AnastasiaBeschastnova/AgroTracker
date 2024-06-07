@@ -16,9 +16,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 
 class LoginViewModel : ViewModel() {
@@ -82,6 +79,7 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun selectOperatorWorks(creatorId: Int){
+        //проверка наличия у оператора незавершенных полевых работ
         CoroutineScope(Dispatchers.Main).launch {
             flow{
                 val selectOperatorWorksResponse = api?.selectOperatorWorks(creatorId)
@@ -99,6 +97,7 @@ class LoginViewModel : ViewModel() {
                 _uiAction.emit(Actions.ShowToast(message))
             }.collect { selectOperatorWorksResponse ->
                 if(selectOperatorWorksResponse?.comment=="ContinueWorkFragment"){
+                    //если у оператора имеется полевая работа в процессе выполнения, открыть экран процесса выполнения работы
                     if(selectOperatorWorksResponse.startTime!=null &&
                         selectOperatorWorksResponse.workTypeId !=null){
                         val start = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSSX").parse(selectOperatorWorksResponse.startTime)
@@ -111,6 +110,7 @@ class LoginViewModel : ViewModel() {
                     }
                 }
                 else if(selectOperatorWorksResponse?.comment=="EndWorkFormFragment"){
+                    //если у оператора имеется полевая работа с неотправленными параметрами, открыть экран процесса отправки параметров полевой работы
                     if(selectOperatorWorksResponse.startTime!=null &&
                         selectOperatorWorksResponse.workTypeId !=null
                         && selectOperatorWorksResponse.workId !=null){
@@ -125,6 +125,7 @@ class LoginViewModel : ViewModel() {
                     }
                 }
                 else{
+                    //если незавершенных работ нет, дать доступ к созданию новой полевой работы
                     _uiAction.emit(Actions.ToStartWork(creatorId))
                 }
             }

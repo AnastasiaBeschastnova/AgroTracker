@@ -1,7 +1,6 @@
 package com.example.agrotracker.api.requests
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Query
 
 data class InsertWorkRequest (
     @SerializedName("culture_id")

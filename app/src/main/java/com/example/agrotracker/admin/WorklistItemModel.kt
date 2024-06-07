@@ -2,7 +2,6 @@ package com.example.agrotracker.admin
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.Date
 
 @Parcelize
 data class WorklistItemModel (

@@ -26,6 +26,7 @@ class WorklistViewModel: ViewModel() {
     val uiData: StateFlow<Data?> = _uiData.asStateFlow()
 
      fun getWorklist() {
+         //получить список полевых работ
         CoroutineScope(Dispatchers.Main).launch {
             flow{
                 val worksResponse = api?.getWorklist()

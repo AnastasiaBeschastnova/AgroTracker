@@ -37,6 +37,7 @@ class EndWorkFormFragment : Fragment() {
                 viewModel.uiData.collect {
                     when (it) {
                         is EndWorkFormViewModel.Data.Fields-> {
+                            //отображать только те поля для ввода параметров по окончании полевой работы, которые соответствуют типу выполненной полевой работы
                             binding.seedsTextInputLayout.isVisible=it.seedsIsVisible
                             binding.seeds.isVisible=it.seedsIsVisible
                             binding.fertilizerTextInputLayout.isVisible=it.fertilizerIsVisible
@@ -85,6 +86,7 @@ class EndWorkFormFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSend.setOnClickListener {
+            //отправка параметров, вводимых по окончании выполнения полевой работы
             viewModel.sendWorkParameterValues(
                 fuel = binding.fuelInputEditText.text.toString().toIntOrNull(),
                 water = binding.waterInputEditText.text.toString().toIntOrNull(),

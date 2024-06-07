@@ -1,9 +1,8 @@
 package com.example.agrotracker.api.responses
 
 import com.google.gson.annotations.SerializedName
-import org.osmdroid.util.GeoPoint
 
-//import org.osmdroid.views.overlay.Polygon
+
 
 data class WorkInfoResponse(
     @SerializedName("work_id")

@@ -1,7 +1,6 @@
 package com.example.agrotracker.api.responses
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
 
 data class WorklistResponse(
     @SerializedName("work_id")

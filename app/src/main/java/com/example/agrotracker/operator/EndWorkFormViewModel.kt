@@ -36,6 +36,7 @@ class EndWorkFormViewModel : ViewModel() {
         workId: Int,
         fuel: Int, secondParameterValue: Int
     ) {
+        //отправка параметров полевой работы, введенных по окончании выполнения работы
         CoroutineScope(Dispatchers.Main).launch {
             flow {
                 val insertWorkParameterValuesResponse = api?.insertWorkParameterValues(
@@ -51,7 +52,6 @@ class EndWorkFormViewModel : ViewModel() {
     }
 
     fun sendWorkParameterValues(
-        //workTypeId: Int,
         fuel: Int?,
         seeds: Int?,
         fertilizer: Int?,
@@ -77,6 +77,7 @@ class EndWorkFormViewModel : ViewModel() {
     fun initData(workTypeId: Int, workId: Int) = viewModelScope.launch {
         this@EndWorkFormViewModel.workTypeId = workTypeId
         this@EndWorkFormViewModel.workId = workId
+        //определение видимости параметров полевой работы в зависимости от типа полевой работы
         _uiData.value = Data.Fields(
             seedsIsVisible = workTypeId == 2,
             fertilizerIsVisible = workTypeId == 3,
